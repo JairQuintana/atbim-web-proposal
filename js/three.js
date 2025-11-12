@@ -2,6 +2,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { BACKGROUND_COLOR, MAIN_POSITION } from "./constants.js";
 
+THREE.ColorManagement.enabled = true;
+
 const container = document.getElementById("scene-container");
 export const scene = new THREE.Scene();
 
@@ -16,7 +18,11 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.outputEncoding = THREE.sRGBEncoding;
 container.appendChild(renderer.domElement);
 
-renderer.setClearColor(BACKGROUND_COLOR);
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.NoToneMapping;
+
+const bg = new THREE.Color(BACKGROUND_COLOR).convertSRGBToLinear();
+renderer.setClearColor(bg, 1);
 
 export const camera = new THREE.PerspectiveCamera(
   60,

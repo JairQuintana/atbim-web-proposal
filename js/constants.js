@@ -9,4 +9,4 @@ export const MOVEMENT_RANGE = {
   y: 0.07,
 };
 
-export const BACKGROUND_COLOR = 0x0a0a0a;
+export const BACKGROUND_COLOR = 0x2f2d5f;
