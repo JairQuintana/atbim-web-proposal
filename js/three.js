@@ -25,10 +25,10 @@ const bg = new THREE.Color(BACKGROUND_COLOR).convertSRGBToLinear();
 renderer.setClearColor(bg, 1);
 
 export const camera = new THREE.PerspectiveCamera(
-  60,
+  35,
   window.innerWidth / window.innerHeight,
-  0.2,
-  1000
+  0.1,
+  2000
 );
 camera.position.set(MAIN_POSITION.x, MAIN_POSITION.y, MAIN_POSITION.z);
 

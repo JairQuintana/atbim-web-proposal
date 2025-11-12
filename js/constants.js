@@ -1,12 +1,12 @@
 export const MAIN_POSITION = {
   x: -0.013219682806603001,
-  y: -0.9186482160438197,
-  z: 0.8859603843026489,
+  y: -1.36482160438197,
+  z: 0.9859603843026489,
 };
 
 export const MOVEMENT_RANGE = {
-  x: 0.07,
-  y: 0.07,
+  x: 0.09,
+  y: 0.09,
 };
 
-export const BACKGROUND_COLOR = 0x2f2d5f;
+export const BACKGROUND_COLOR = 0x1f1b4c;
