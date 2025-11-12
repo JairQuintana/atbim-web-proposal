@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Modelo Oficina 3D</title>
+    <!-- Updated to use the correct CSS path -->
     <link rel="stylesheet" href="./css/index.css" />
     <script type="importmap">
       {
@@ -16,16 +17,13 @@
   </head>
   <body>
 
-
-
- <!-- ============================================
+  <!-- ============================================
        HEADER / NAVIGATION MENU
        ============================================ -->
   <header class="header">
     <nav class="nav-container">
       <div class="logo">
-        <img src="./resources/images/atbimName.png" width="120"  alt="ATBIM Logo">
-      </img>
+        <img src="./resources/images/atbimName.png" width="120" alt="ATBIM Logo" />
       </div>
       
       <ul class="nav-menu">
@@ -47,13 +45,123 @@
        ============================================ -->
   <section class="hero">
     <div class="hero-content">
-      <h1 class="hero-title">Construimos el futuro del<br>modelado BIM </br> con inteligencia artificial</h1>
+      <h1 class="hero-title">Construimos el futuro del<br>modelado BIM<br>con inteligencia artificial</h1>
       <button class="btn-primary">
         Explore our Tech <span class="arrow">→</span>
       </button>
     </div>
-    
- 
+  </section>
+
+  <!-- ============================================
+       SERVICIOS - LO QUE HACEMOS
+       ============================================ -->
+  <section class="cards-section">
+    <div class="cards-container">
+      <h2 class="section-title">Nuestros <span class="highlight">Servicios</span></h2>
+      <p class="section-subtitle">Especializados en soluciones tecnológicas para el sector AEC, desarrollamos herramientas que optimizan tu flujo de trabajo.</p>
+      
+      <div class="cards-grid">
+        <!-- Card 1 - Plugins Revit -->
+        <div class="card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+              <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+              <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <div class="card-badge">Plugins Revit</div>
+          <p class="card-text">Desarrollamos plugins personalizados para Autodesk Revit que automatizan tareas repetitivas y optimizan tu flujo de trabajo BIM con inteligencia artificial.</p>
+        </div>
+
+        <!-- Card 2 - Aplicaciones Web -->
+        <div class="card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <div class="card-badge">Aplicaciones Web</div>
+          <p class="card-text">Creamos aplicaciones web modernas y escalables para la gestión de proyectos de construcción, visualización de modelos BIM y colaboración en tiempo real.</p>
+        </div>
+
+        <!-- Card 3 - Integración IA -->
+        <div class="card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 16v-4"></path>
+              <path d="M12 8h.01"></path>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            </svg>
+          </div>
+          <div class="card-badge">Integración IA</div>
+          <p class="card-text">Integramos modelos de lenguaje avanzados (IA) en tus herramientas BIM para interpretar comandos en lenguaje natural y ejecutar acciones automáticas.</p>
+        </div>
+      </div>
+
+      <p class="section-footer">Transformamos ideas en <strong>soluciones tecnológicas</strong> que impulsan la innovación en el sector de la construcción.</p>
+    </div>
+  </section>
+
+  <!-- ============================================
+       COMANDOS IA - CÓMO FUNCIONA
+       ============================================ -->
+  <section class="cards-section cards-section-alt">
+    <div class="cards-container">
+      <h2 class="section-title">Del comando a la <span class="highlight">acción</span></h2>
+      <p class="section-subtitle">Nuestros plugins integran modelos de lenguaje (IA) directamente en Revit, interpretando instrucciones en texto o voz:</p>
+      
+      <div class="cards-grid">
+        <!-- Card 1 -->
+        <div class="card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="9" y1="9" x2="15" y2="9"></line>
+              <line x1="9" y1="15" x2="15" y2="15"></line>
+            </svg>
+          </div>
+          <div class="card-badge">Comando 1</div>
+          <p class="card-text">"Ajusta todos los muros al nivel 2."</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <div class="card-badge">Comando 2</div>
+          <p class="card-text">"Genera una vista 3D con los elementos estructurales."</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <div class="card-badge">Comando 3</div>
+          <p class="card-text">"Exporta el modelo con los materiales simplificados."</p>
+        </div>
+      </div>
+
+      <p class="section-footer">Detrás de cada comando, un <strong>agente inteligente</strong> traduce tus palabras en acciones reales dentro de Revit.</p>
+    </div>
   </section>
 
   <!-- ============================================
@@ -64,11 +172,6 @@
       <p>&copy; ATBIM - Building Engineering.</p>
     </div>
   </footer>
-
-
-
-
-
 
     <script type="module" src="./js/index.js"></script>
     <div id="scene-container"></div>
