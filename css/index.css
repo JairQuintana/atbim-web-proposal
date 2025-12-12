@@ -1043,3 +1043,18 @@ figcaption {
     grid-template-columns: 1fr;
   }
 }
+
+/* transición siempre activa */
+#hero-title,
+#hero-subtitle {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+
+/* cuando ocultamos */
+body.hero-is-hidden #hero-title,
+body.hero-is-hidden #hero-subtitle {
+  opacity: 0 !important;
+  transform: translateY(-6px) !important;
+  pointer-events: none;
+}
