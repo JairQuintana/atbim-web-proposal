@@ -244,6 +244,8 @@ function setupZonesUI() {
       );
       zoomToZone(marker, index);
       showResetOnly();
+      hideHero();
+
     });
 
     overlay.appendChild(button);
@@ -263,6 +265,7 @@ function setupZonesUI() {
     e.stopPropagation();
     resetCamera();
     showZonesOnly();
+    showHero();
   });
   overlay.appendChild(resetButton);
 
@@ -457,6 +460,8 @@ window.addEventListener("keydown", (e) => {
   if (e.key === "Escape" || e.code === "Space") {
     resetCamera();
     showZonesOnly();
+    showHero();
+
   }
 });
 
@@ -634,3 +639,13 @@ function initLanguageSelector() {
 }
 
 document.addEventListener("DOMContentLoaded", initLanguageSelector);
+
+function hideHero() {
+  document.body.classList.add("hero-is-hidden");
+}
+
+function showHero() {
+  document.body.classList.remove("hero-is-hidden");
+}
+
+
