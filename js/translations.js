@@ -8,9 +8,8 @@ export const translations = {
     navAbout: "Sobre nosotros",
     navContactBtn: "Contáctanos",
 
-    heroTitle: "BIM más ágil, eficiente y conectado.",
-    heroSubtitle:
-      "Agilizamos tu flujo de trabajo BIM con plugins y soluciones web a medida.",
+    heroTitle: "Lograr que los edificios funcionen más allá de BIM",
+    heroSubtitle:"El Modelado de Información de Construcción se centra en el diseño y la construcción de un edificio. Un gemelo digital representa cómo las personas interactúan con los entornos construidos.",
     heroCta: "Explora nuestra tecnología",
 
     servicesTitle: 'Nuestros <span class="highlight">Servicios</span>',
@@ -18,7 +17,7 @@ export const translations = {
       "Especializados en soluciones tecnológicas para el sector AEC, desarrollamos herramientas que optimizan tu flujo de trabajo.",
     servicesCard1Badge: "Plugins Revit",
     servicesCard1Text:
-      "Desarrollamos plugins personalizados para Autodesk Revit que automatizan tareas repetitivas y optimizan tu flujo de trabajo BIM con inteligencia artificial.",
+      "Nuestro equipo de modelado, coordinación y gestión es capaz de desarrollar complejos, con BIM, para aprovechar la información en las etapas de diseño, construcción y mantenimiento",
     servicesCard2Badge: "Aplicaciones Web",
     servicesCard2Text:
       "Creamos aplicaciones web modernas y escalables para la gestión de proyectos de construcción, visualización de modelos BIM y colaboración en tiempo real.",
@@ -85,9 +84,9 @@ export const translations = {
     navAbout: "About us",
     navContactBtn: "Contact us",
 
-    heroTitle: "More agile, efficient and connected BIM.",
+    heroTitle: "Making buildings work beyond BIM",
     heroSubtitle:
-      "We streamline your BIM workflow with custom plugins and web-based solutions.",
+      "Building Information Modeling (BIM) focuses on the design and construction of a building. A digital twin represents how people interact with built environments.",
     heroCta: "Explore our tech",
 
     servicesTitle: 'Our <span class="highlight">Services</span>',
@@ -95,7 +94,7 @@ export const translations = {
       "We specialize in tech solutions for the AEC industry, developing tools that optimize your workflow.",
     servicesCard1Badge: "Revit plugins",
     servicesCard1Text:
-      "We develop custom plugins for Autodesk Revit that automate repetitive tasks and optimize your BIM workflow with AI.",
+      "Our modeling, coordination, and management team is capable of developing complex projects using BIM to leverage information during the design, construction, and maintenance phases.",
     servicesCard2Badge: "Web applications",
     servicesCard2Text:
       "We build modern, scalable web applications for construction project management, BIM model visualization and real-time collaboration.",

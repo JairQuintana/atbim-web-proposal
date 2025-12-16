@@ -1,4 +1,3 @@
-// index.js – Zoom independiente de la posición del botón
 import * as THREE from "three";
 import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
 import { MAIN_POSITION, MOVEMENT_RANGE } from "./constants.js";
@@ -24,6 +23,60 @@ let targetPosition = new THREE.Vector3();
 let targetLookAt = new THREE.Vector3();
 let animationStartTime = 0;
 const animationDuration = 900;
+
+// ==========================
+//   PANEL SYSTEM (NO SCROLL)
+// ==========================
+let pendingPanelTimeout = null;
+let activePanel = null;
+
+// Mapea cada botón/zona -> sección/panel
+const ZONE_TO_PANEL = {
+  0: "about", // Sobre Nosotros
+  1: "technology", // Tecnnología
+  2: "resources", // Recursos
+  3: "services", // Soluciones
+};
+
+function clearPendingPanel() {
+  if (pendingPanelTimeout) {
+    clearTimeout(pendingPanelTimeout);
+    pendingPanelTimeout = null;
+  }
+}
+
+function closeActivePanel() {
+  clearPendingPanel();
+  document.body.classList.remove("panel-open");
+  document
+    .querySelectorAll(".atbim-panel")
+    .forEach((p) => p.classList.remove("is-active"));
+  activePanel = null;
+}
+
+function openPanel(panelName) {
+  clearPendingPanel();
+
+  const panel = document.querySelector(
+    `.atbim-panel[data-panel="${panelName}"]`
+  );
+  if (!panel) return;
+
+  document
+    .querySelectorAll(".atbim-panel")
+    .forEach((p) => p.classList.remove("is-active"));
+
+  document.body.classList.add("panel-open");
+  panel.classList.add("is-active");
+  activePanel = panelName;
+}
+
+function openPanelAfterDelay(panelName, ms = 1000) {
+  clearPendingPanel();
+  pendingPanelTimeout = setTimeout(() => {
+    openPanel(panelName);
+  }, ms);
+}
 
 // ==========================
 //   CARGA DEL MODELO FBX
@@ -65,6 +118,11 @@ loader.load(
     baseViewDir.copy(camera.position).sub(modelCenter).normalize();
     baseDistance = camera.position.distanceTo(modelCenter);
 
+    // ✅ estilos UI + overlay
+    injectZoneStyles();
+    mountOverlay();
+
+    // ✅ botones de zonas
     setupZonesUI();
 
     console.log("OFICINA CARGADA");
@@ -80,109 +138,122 @@ loader.load(
 );
 
 // ==========================
-//   UI: OVERLAY + BOTONES
+//   UI: ESTILOS (SEPARADO)
 // ==========================
-const style = document.createElement("style");
-style.textContent = `
-  .atbim-zone-overlay {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 50;
-  }
+function injectZoneStyles() {
+  if (document.getElementById("atbim-zone-styles")) return;
 
-  .atbim-zone-button {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    pointer-events: auto;
-    padding: 0.6rem 2rem;
-    border-radius: 999px;
-    border: 1px solid rgba(129, 140, 248, 0.9);
-    background: radial-gradient(circle at top left, rgba(129,140,248,0.35), rgba(15,23,42,0.98));
-    color: #e5e7eb;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 600;
-    cursor: pointer;
-    overflow: hidden;
-    box-shadow: 0 0 0 1px rgba(129,140,248,0.25), 0 10px 28px rgba(15,23,42,0.9);
-    backdrop-filter: blur(10px);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    animation: atbim-pulse 1.8s ease-in-out infinite;
-    transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
-  }
+  const style = document.createElement("style");
+  style.id = "atbim-zone-styles";
+  style.textContent = `
+.atbim-zone-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+}
 
-  .atbim-zone-button::before {
-    content: "";
-    position: absolute;
-    inset: -2px;
-    border-radius: inherit;
-    background: conic-gradient(from 120deg, rgba(129,140,248,0.0), rgba(129,140,248,0.7), rgba(236,72,153,0.7), rgba(129,140,248,0.0));
-    opacity: 0;
-    animation: atbim-glow 2.4s linear infinite;
-    z-index: -1;
-  }
+.atbim-zone-button {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  padding: 0.6rem 2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(129, 140, 248, 0.9);
+  background: radial-gradient(circle at top left, rgba(129,140,248,0.35), rgba(15,23,42,0.98));
+  color: #e5e7eb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(129,140,248,0.25), 0 10px 28px rgba(15,23,42,0.9);
+  backdrop-filter: blur(10px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: atbim-pulse 1.8s ease-in-out infinite;
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+}
 
-  .atbim-zone-button span.label { position: relative; z-index: 1; }
-  .atbim-zone-button span.dot {
-    position: relative;
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    background: #a5b4fc;
-    box-shadow: 0 0 10px rgba(129,140,248,0.9);
-    animation: atbim-blink 1.1s ease-in-out infinite;
-  }
+.atbim-zone-button::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(from 120deg, rgba(129,140,248,0.0), rgba(129,140,248,0.7), rgba(236,72,153,0.7), rgba(129,140,248,0.0));
+  opacity: 0;
+  animation: atbim-glow 2.4s linear infinite;
+  z-index: -1;
+}
 
-  .atbim-zone-button.zone-2 { border-color: rgba(236,72,153,0.9); box-shadow: 0 0 0 1px rgba(236,72,153,0.25), 0 10px 28px rgba(15,23,42,0.9); }
-  .atbim-zone-button.zone-2 span.dot { background: #fb7185; box-shadow: 0 0 10px rgba(248,113,113,0.9); animation-delay: 0.25s; }
-  .atbim-zone-button.zone-3 { border-color: rgba(45,212,191,0.9); box-shadow: 0 0 0 1px rgba(45,212,191,0.25), 0 10px 28px rgba(15,23,42,0.9); }
-  .atbim-zone-button.zone-3 span.dot { background: #5eead4; box-shadow: 0 0 10px rgba(45,212,191,0.9); animation-delay: 0.5s; }
+.atbim-zone-button span.label { position: relative; z-index: 1; }
+.atbim-zone-button span.dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #a5b4fc;
+  box-shadow: 0 0 10px rgba(129,140,248,0.9);
+  animation: atbim-blink 1.1s ease-in-out infinite;
+}
 
-  .atbim-zone-button:hover { transform: translate(-50%, -50%) translateY(-2px); box-shadow: 0 0 0 1px rgba(129,140,248,0.4), 0 14px 34px rgba(15,23,42,1); }
-  .atbim-zone-button.atbim-zone-button--active { transform: translate(-50%, -50%) scale(1.06); box-shadow: 0 0 0 1px rgba(244, 244, 245, 0.6), 0 18px 40px rgba(15,23,42,1); }
+.atbim-zone-button.zone-2 { border-color: rgba(236,72,153,0.9); box-shadow: 0 0 0 1px rgba(236,72,153,0.25), 0 10px 28px rgba(15,23,42,0.9); }
+.atbim-zone-button.zone-2 span.dot { background: #fb7185; box-shadow: 0 0 10px rgba(248,113,113,0.9); animation-delay: 0.25s; }
+.atbim-zone-button.zone-3 { border-color: rgba(45,212,191,0.9); box-shadow: 0 0 0 1px rgba(45,212,191,0.25), 0 10px 28px rgba(15,23,42,0.9); }
+.atbim-zone-button.zone-3 span.dot { background: #5eead4; box-shadow: 0 0 10px rgba(45,212,191,0.9); animation-delay: 0.5s; }
 
-  .atbim-reset-button {
-    position: absolute;
-    pointer-events: auto;
-    bottom: 3.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 0.55rem 1.8rem;
-    border-radius: 999px;
-    border: 1px solid rgba(148,163,184,0.9);
-    background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(15,23,42,0.96));
-    color: #e5e7eb;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 500;
-    cursor: pointer;
-    box-shadow: 0 0 0 1px rgba(148,163,184,0.35), 0 10px 28px rgba(15,23,42,0.9);
-    backdrop-filter: blur(10px);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    opacity: 0;
-    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
-  }
+.atbim-zone-button:hover { transform: translate(-50%, -50%) translateY(-2px); box-shadow: 0 0 0 1px rgba(129,140,248,0.4), 0 14px 34px rgba(15,23,42,1); }
+.atbim-zone-button.atbim-zone-button--active { transform: translate(-50%, -50%) scale(1.06); box-shadow: 0 0 0 1px rgba(244, 244, 245, 0.6), 0 18px 40px rgba(15,23,42,1); }
 
-  .atbim-reset-button--visible { opacity: 1; }
+.atbim-reset-button {
+  position: absolute;
+  pointer-events: auto;
+  bottom: 3.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.55rem 1.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,0.9);
+  background: radial-gradient(circle at top, rgba(15,23,42,0.98), rgba(15,23,42,0.96));
+  color: #e5e7eb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(148,163,184,0.35), 0 10px 28px rgba(15,23,42,0.9);
+  backdrop-filter: blur(10px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
 
-  @keyframes atbim-pulse { 0%, 100% { opacity: 0.96; } 50% { opacity: 1; } }
-  @keyframes atbim-glow { 0% { opacity: 0; transform: rotate(0deg); } 35% { opacity: 1; } 70% { opacity: 0; transform: rotate(180deg); } 100% { opacity: 0; transform: rotate(360deg); } }
-  @keyframes atbim-blink { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.25); } }
+.atbim-reset-button--visible { opacity: 1; }
+
+@keyframes atbim-pulse { 0%, 100% { opacity: 0.96; } 50% { opacity: 1; } }
+@keyframes atbim-glow { 0% { opacity: 0; transform: rotate(0deg); } 35% { opacity: 1; } 70% { opacity: 0; transform: rotate(180deg); } 100% { opacity: 0; transform: rotate(360deg); } }
+@keyframes atbim-blink { 0%, 100% { opacity: 0.3; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.25); } }
 `;
-document.head.appendChild(style);
+  document.head.appendChild(style);
+}
 
-const overlay = document.createElement("div");
-overlay.className = "atbim-zone-overlay";
-document.body.appendChild(overlay);
+// ==========================
+//   UI: OVERLAY (SEPARADO)
+// ==========================
+let overlay = null;
+
+function mountOverlay() {
+  if (overlay) return;
+  overlay = document.createElement("div");
+  overlay.className = "atbim-zone-overlay";
+  document.body.appendChild(overlay);
+}
 
 // ==========================
 //   CREAR ZONAS + BOTÓN RESET
@@ -237,15 +308,21 @@ function setupZonesUI() {
 
     button.addEventListener("click", (e) => {
       e.stopPropagation();
+
+      closeActivePanel();
+
       button.classList.add("atbim-zone-button--active");
       setTimeout(
         () => button.classList.remove("atbim-zone-button--active"),
         250
       );
+
       zoomToZone(marker, index);
       showResetOnly();
       hideHero();
 
+      const panelName = ZONE_TO_PANEL[index];
+      if (panelName) openPanelAfterDelay(panelName, 1000);
     });
 
     overlay.appendChild(button);
@@ -263,6 +340,7 @@ function setupZonesUI() {
   `;
   resetButton.addEventListener("click", (e) => {
     e.stopPropagation();
+    closeActivePanel();
     resetCamera();
     showZonesOnly();
     showHero();
@@ -298,12 +376,15 @@ function showZonesOnly() {
 function updateZoneButtonsPosition() {
   if (!zoneMeshes.length || !container) return;
   const rect = container.getBoundingClientRect();
+
   zoneMeshes.forEach((mesh, index) => {
     const btn = zoneButtons[index];
     if (!btn) return;
+
     const vector = mesh.position.clone().project(camera);
     const x = rect.left + (vector.x * 0.5 + 0.5) * rect.width;
     const y = rect.top + (-vector.y * 0.5 + 0.5) * rect.height;
+
     btn.style.left = `${x}px`;
     btn.style.top = `${y}px`;
   });
@@ -312,8 +393,6 @@ function updateZoneButtonsPosition() {
 // ==========================
 //   ZOOM Y RESET
 // ==========================
-
-// 🔧 CONFIG DE VISTA POR ZONA
 const ZONE_VIEW_CONFIG = [
   {
     distFactor: -0.18,
@@ -322,20 +401,17 @@ const ZONE_VIEW_CONFIG = [
     customDirection: new THREE.Vector3(10, 0, 1.3),
   },
   {
-    // ZONA 2 Resources
     distFactor: 0.16,
     heightOffset: 1.1,
     lookOffset: new THREE.Vector3(-0.9, 0.12, -0.32),
     customDirection: new THREE.Vector3(-0.45, -0.35, -1.0),
   },
   {
-    // ZONA 3 About Us
     distFactor: 0.18,
     heightOffset: 0.55,
     lookOffset: new THREE.Vector3(0.02, 0, -0.56),
   },
   {
-    // ZONA 4 Technology
     distFactor: 0.5,
     heightOffset: 0.95,
     lookOffset: new THREE.Vector3(0, 0.05, 0),
@@ -345,13 +421,9 @@ const ZONE_VIEW_CONFIG = [
 
 function zoomToZone(mesh, zoneIndex) {
   if (!mesh || baseDistance === null) return;
-  console.log("ZOOM A ZONA", HOTSPOTS[zoneIndex].id);
 
   const cfg = ZONE_VIEW_CONFIG[zoneIndex];
-  if (!cfg) {
-    console.warn(`No hay configuración para la zona ${zoneIndex + 1}`);
-    return;
-  }
+  if (!cfg) return;
 
   isAnimating = true;
   isZoomed = true;
@@ -360,7 +432,6 @@ function zoomToZone(mesh, zoneIndex) {
 
   let focusPoint;
   if (zoneIndex === 1) {
-    // ZONA 2: usamos EXACTAMENTE la posición del marker
     focusPoint = mesh.position.clone();
   } else {
     focusPoint = mesh.userData.focusPoint.clone();
@@ -446,7 +517,6 @@ function animate() {
   renderer.render(scene, camera);
   updateZoneButtonsPosition();
 }
-
 animate();
 
 window.addEventListener("resize", () => {
@@ -458,20 +528,20 @@ window.addEventListener("resize", () => {
 
 window.addEventListener("keydown", (e) => {
   if (e.key === "Escape" || e.code === "Space") {
+    closeActivePanel();
     resetCamera();
     showZonesOnly();
     showHero();
-
   }
 });
 
+// ==========================
+//   IDIOMAS
+// ==========================
 function setLanguage(lang) {
   const t = translations[lang] || translations.es;
-
-  // Cambiar atributo lang del <html>
   document.documentElement.lang = lang;
 
-  // NAV
   const navSolutions = document.getElementById("nav-solutions");
   const navTechnology = document.getElementById("nav-technology");
   const navResources = document.getElementById("nav-resources");
@@ -493,7 +563,6 @@ function setLanguage(lang) {
     }
   }
 
-  // HERO
   const heroTitle = document.getElementById("hero-title");
   const heroSubtitle = document.getElementById("hero-subtitle");
   const heroCta = document.getElementById("hero-cta");
@@ -511,7 +580,6 @@ function setLanguage(lang) {
     }
   }
 
-  // SERVICIOS
   const servicesTitle = document.getElementById("services-title");
   const servicesSubtitle = document.getElementById("services-subtitle");
   const servicesCard1Badge = document.getElementById("services-card1-badge");
@@ -532,7 +600,6 @@ function setLanguage(lang) {
   if (servicesCard3Text) servicesCard3Text.textContent = t.servicesCard3Text;
   if (servicesFooter) servicesFooter.innerHTML = t.servicesFooter;
 
-  // COMANDOS
   const commandsTitle = document.getElementById("commands-title");
   const commandsSubtitle = document.getElementById("commands-subtitle");
   const commandsCard1Badge = document.getElementById("commands-card1-badge");
@@ -553,7 +620,6 @@ function setLanguage(lang) {
   if (commandsCard3Text) commandsCard3Text.textContent = t.commandsCard3Text;
   if (commandsFooter) commandsFooter.innerHTML = t.commandsFooter;
 
-  // INTEGRACIÓN IA
   const integrationTitle = document.getElementById("integration-title");
   const integrationParagraph = document.getElementById("integration-paragraph");
   const integrationLi1 = document.getElementById("integration-li1");
@@ -567,7 +633,6 @@ function setLanguage(lang) {
   if (integrationLi2) integrationLi2.textContent = t.integrationLi2;
   if (integrationLi3) integrationLi3.textContent = t.integrationLi3;
 
-  // PROYECTOS
   const projectsTitle = document.getElementById("projects-title");
   const project1Overlay = document.getElementById("project1-overlay");
   const project1Caption = document.getElementById("project1-caption");
@@ -584,7 +649,6 @@ function setLanguage(lang) {
   if (project3Overlay) project3Overlay.textContent = t.project3Overlay;
   if (project3Caption) project3Caption.textContent = t.project3Caption;
 
-  // CONTACTO
   const contactMainTitle = document.getElementById("contact-main-title");
   const contactMainText = document.getElementById("contact-main-text");
   const contactFormTitle = document.getElementById("contact-form-title");
@@ -610,14 +674,9 @@ function setLanguage(lang) {
   if (emailInput) emailInput.placeholder = t.contactEmailPlaceholder;
   if (messageInput) messageInput.placeholder = t.contactMessagePlaceholder;
 
-  // FOOTER
   const footerText = document.getElementById("footer-text");
   if (footerText) footerText.textContent = t.footerText;
 }
-
-// ==============================
-// GESTIÓN BOTONES ES / EN
-// ==============================
 
 function initLanguageSelector() {
   const langButtons = document.querySelectorAll(".lang-btn");
@@ -626,7 +685,6 @@ function initLanguageSelector() {
   langButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const lang = btn.dataset.lang;
-
       setLanguage(lang);
 
       langButtons.forEach((b) => b.classList.remove("active"));
@@ -634,18 +692,227 @@ function initLanguageSelector() {
     });
   });
 
-  // Idioma por defecto
   setLanguage("es");
 }
-
 document.addEventListener("DOMContentLoaded", initLanguageSelector);
 
 function hideHero() {
   document.body.classList.add("hero-is-hidden");
 }
-
 function showHero() {
   document.body.classList.remove("hero-is-hidden");
 }
 
+// ==========================
+// ✅ NAV: abrir panels desde el menú (con movimiento de cámara)
+// ==========================
+function initNavPanelLinks() {
+  const navMap = [
+    { id: "nav-solutions", panel: "services", zoneIndex: 0 },
+    { id: "nav-technology", panel: "technology", zoneIndex: 1 },
+    { id: "nav-resources", panel: "resources", zoneIndex: 2 },
+    { id: "nav-about", panel: "about", zoneIndex: 3 },
+  ];
 
+  navMap.forEach(({ id, panel, zoneIndex }) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      closeActivePanel();
+
+      // Si el modelo/zona ya está lista, hacemos el mismo movimiento que los botones
+      if (zoneMeshes[zoneIndex]) {
+        zoomToZone(zoneMeshes[zoneIndex], zoneIndex);
+        showResetOnly();
+        hideHero();
+        openPanelAfterDelay(panel, 1000);
+      } else {
+        // Fallback por si aún no cargó el modelo
+        openPanel(panel);
+        showResetOnly();
+        hideHero();
+      }
+    });
+  });
+
+  // ✅ CONTACT: que haga scroll al #contact (sin panel)
+  const contactBtn = document.getElementById("nav-contact-btn");
+  if (contactBtn) {
+    contactBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      closeActivePanel();
+      resetCamera();
+      showZonesOnly();
+      showHero();
+
+      document
+        .getElementById("contact")
+        ?.scrollIntoView({ behavior: "smooth" });
+    });
+  }
+}
+document.addEventListener("DOMContentLoaded", initNavPanelLinks);
+
+// ==========================
+//   NUESTROS PROYECTOS (tu cinematic)
+// ==========================
+(function initProjectsCinematic() {
+  const stage = document.getElementById("pc-stage");
+  const bg = document.getElementById("pc-bg");
+  const img = document.getElementById("pc-img");
+  const title = document.getElementById("pc-title");
+  const desc = document.getElementById("pc-desc");
+  const indexEl = document.getElementById("pc-index");
+  const prev = document.getElementById("pc-prev");
+  const next = document.getElementById("pc-next");
+  const dotsWrap = document.getElementById("pc-dots");
+
+  if (
+    !stage ||
+    !bg ||
+    !img ||
+    !title ||
+    !desc ||
+    !indexEl ||
+    !prev ||
+    !next ||
+    !dotsWrap
+  )
+    return;
+
+  const items = Array.from(document.querySelectorAll(".pc-item")).map((el) => {
+    const imgSrc = el.dataset.img;
+    const titleId = el.dataset.titleId;
+    const descId = el.dataset.descId;
+
+    const t = document.getElementById(titleId)?.textContent?.trim() || "";
+    const d = document.getElementById(descId)?.textContent?.trim() || "";
+
+    return { img: imgSrc, title: t, desc: d };
+  });
+
+  let active = 0;
+  let autoplay = null;
+  let hover = false;
+
+  function buildDots() {
+    dotsWrap.innerHTML = "";
+    items.forEach((_, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "pc-dot" + (i === active ? " is-active" : "");
+      b.addEventListener("click", () => goTo(i));
+      dotsWrap.appendChild(b);
+    });
+  }
+
+  function setDots() {
+    Array.from(dotsWrap.children).forEach((d, i) => {
+      d.classList.toggle("is-active", i === active);
+    });
+  }
+
+  function render() {
+    const it = items[active];
+    indexEl.textContent = String(active + 1).padStart(2, "0");
+
+    bg.style.backgroundImage = `url("${it.img}")`;
+    img.src = it.img;
+    img.alt = it.title;
+
+    title.textContent = it.title;
+    desc.textContent = it.desc;
+
+    setDots();
+  }
+
+  function goTo(i) {
+    if (!items.length) return;
+
+    active = (i + items.length) % items.length;
+
+    stage.classList.add("pc-is-switching");
+    stage.classList.add("pc-is-sweeping");
+
+    setTimeout(() => {
+      render();
+    }, 220);
+
+    setTimeout(() => {
+      stage.classList.remove("pc-is-switching");
+    }, 520);
+
+    setTimeout(() => {
+      stage.classList.remove("pc-is-sweeping");
+    }, 700);
+  }
+
+  function go(dir) {
+    goTo(active + dir);
+  }
+
+  function start() {
+    stop();
+    autoplay = setInterval(() => {
+      if (!hover) go(1);
+    }, 3000);
+  }
+
+  function stop() {
+    if (autoplay) clearInterval(autoplay);
+    autoplay = null;
+  }
+
+  stage.addEventListener("mousemove", (e) => {
+    const r = stage.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    bg.style.transform = `scale(1.2) translate(${x * 18}px, ${y * 18}px)`;
+  });
+
+  stage.addEventListener("mouseenter", () => (hover = true));
+  stage.addEventListener("mouseleave", () => {
+    hover = false;
+    bg.style.transform = "scale(1.2)";
+  });
+
+  prev.addEventListener("click", () => go(-1));
+  next.addEventListener("click", () => go(1));
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") go(-1);
+    if (e.key === "ArrowRight") go(1);
+  });
+
+  buildDots();
+  render();
+  start();
+})();
+
+// ==============================
+//  X DENTRO DE CADA PANEL (CIERRA SOLO LA CAPA)
+// ==============================
+(function mountPanelXs() {
+  const inners = document.querySelectorAll(".atbim-panel .atbim-panel-inner");
+
+  inners.forEach((inner) => {
+    if (inner.querySelector(".atbim-panel-x")) return;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "atbim-panel-x";
+    btn.setAttribute("aria-label", "Cerrar");
+    btn.textContent = "✕";
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      closeActivePanel();
+    });
+
+    inner.appendChild(btn);
+  });
+})();

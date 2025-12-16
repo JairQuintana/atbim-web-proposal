@@ -1,0 +1,146 @@
+/* Mantén el 3D siempre detrás */
+#scene-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Header por encima del 3D */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+}
+
+/* Hero por encima del 3D */
+.hero {
+  position: relative;
+  z-index: 10;
+}
+
+/* Cuando ocultas hero */
+body.hero-is-hidden .hero {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* ==========================
+   PANELES FULLSCREEN
+========================== */
+.atbim-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px) scale(0.99);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  padding-top: 90px; /* para dejar hueco al header */
+}
+
+/* Contenido */
+.atbim-panel-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 22px;
+
+  /* si una sección es muy alta, que scrollee DENTRO del panel */
+  max-height: calc(100vh - 110px);
+  overflow: auto;
+  border-radius: 22px;
+  border: 1px solid rgba(129, 140, 248, 0.18);
+  background: rgba(15, 23, 42, 0.45);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+
+/* Visible */
+.atbim-panel.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+/* Botón global cerrar */
+.atbim-panel-close {
+  position: fixed;
+  z-index: 70;
+  top: 92px;
+  right: 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  background: rgba(15, 23, 42, 0.7);
+  color: #e5e7eb;
+  padding: 10px 14px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+body.panel-open .atbim-panel-close {
+  display: inline-flex;
+}
+
+.header {
+  position: fixed;
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.nav-container {
+  width: min(1200px, 100%) !important;
+  margin: 0 auto !important;
+  padding: 16px 24px !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+}
+
+/* Por si algún wrapper/hero tiene transform y afecta al fixed */
+body {
+  transform: none !important;
+}
+
+
+/* ==========================
+   X dentro del panel
+========================== */
+.atbim-panel-inner {
+  position: relative; /* ya lo tienes, pero lo dejamos por seguridad */
+}
+
+.atbim-panel-x {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  
+  background: rgba(15, 23, 42, 0.55);
+  color: #e5e7eb;
+
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+
