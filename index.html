@@ -365,7 +365,11 @@
         </div>
         <article>
           <!-- ✅ abre Technology panel (sin scroll) -->
-          <button class="btn-primary" id="hero-cta" data-open-panel="technology">
+          <button
+            class="btn-primary"
+            id="hero-cta"
+            data-open-panel="technology"
+          >
             Explore our Tech <span class="arrow">→</span>
           </button>
         </article>
@@ -405,7 +409,9 @@
                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
               </svg>
             </div>
-            <div class="card-badge" id="services-card1-badge">Plugins Revit</div>
+            <div class="card-badge" id="services-card1-badge">
+              Plugins Revit
+            </div>
             <p class="card-text" id="services-card1-text">
               Desarrollamos plugins personalizados para Autodesk Revit que
               automatizan tareas repetitivas y optimizan tu flujo de trabajo BIM
@@ -456,7 +462,9 @@
                 <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
               </svg>
             </div>
-            <div class="card-badge" id="services-card3-badge">Integración IA</div>
+            <div class="card-badge" id="services-card3-badge">
+              Integración IA
+            </div>
             <p class="card-text" id="services-card3-text">
               Integramos modelos de lenguaje avanzados (IA) en tus herramientas
               BIM para interpretar comandos en lenguaje natural y ejecutar
@@ -536,22 +544,24 @@
       <div class="atbim-panel-inner bim-with-ia-content">
         <div class="bim-with-ia-left">
           <h2 id="integration-title">
-            <span>I</span><span>n</span><span>t</span><span>e</span><span>g</span
-            ><span>r</span><span>a</span><span>c</span><span>i</span><span>ó</span
-            ><span>n</span>
+            <span>I</span><span>n</span><span>t</span><span>e</span
+            ><span>g</span><span>r</span><span>a</span><span>c</span
+            ><span>i</span><span>ó</span><span>n</span>
             &nbsp;
             <span>d</span><span>e</span>
             &nbsp;
-            <span>I</span><span>n</span><span>t</span><span>e</span><span>l</span
-            ><span>i</span><span>g</span><span>e</span><span>n</span><span>c</span
-            ><span>i</span><span>a</span>
+            <span>I</span><span>n</span><span>t</span><span>e</span
+            ><span>l</span><span>i</span><span>g</span><span>e</span
+            ><span>n</span><span>c</span><span>i</span><span>a</span>
             &nbsp;
-            <span>A</span><span>r</span><span>t</span><span>i</span><span>f</span
-            ><span>i</span><span>c</span><span>i</span><span>a</span>
+            <span>A</span><span>r</span><span>t</span><span>i</span
+            ><span>f</span><span>i</span><span>c</span><span>i</span
+            ><span>a</span>
             &nbsp;
             <span>e</span><span>n</span>
             &nbsp;
-            <span>R</span><span>e</span><span>v</span><span>i</span><span>t</span>
+            <span>R</span><span>e</span><span>v</span><span>i</span
+            ><span>t</span>
           </h2>
 
           <p id="integration-paragraph">
@@ -730,7 +740,9 @@
                 </div>
 
                 <div>
-                  <label for="message" id="contact-message-label">Mensaje:</label>
+                  <label for="message" id="contact-message-label"
+                    >Mensaje:</label
+                  >
                   <textarea
                     id="message"
                     name="message"
@@ -766,7 +778,9 @@
 
         function openPanel(name) {
           panels.forEach((p) => p.classList.remove("is-active"));
-          const el = document.querySelector(`.atbim-panel[data-panel="${name}"]`);
+          const el = document.querySelector(
+            `.atbim-panel[data-panel="${name}"]`
+          );
           if (el) {
             el.classList.add("is-active");
             body.classList.add("panel-open");
@@ -816,5 +830,5 @@
   </body>
 </html>
 
-
-//button de volver tiene que estar en idoma, nuevo apartado en ingles tambien, buttons de hotpots en ingles tammbien y apartado de solucuiones
+//button de volver tiene que estar en idoma, nuevo apartado en ingles tambien,
+buttons de hotpots en ingles tammbien y apartado de solucuiones

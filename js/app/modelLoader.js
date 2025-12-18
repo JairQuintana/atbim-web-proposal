@@ -7,7 +7,7 @@ const loader = new FBXLoader();
 export function loadOfficeModel(app) {
   return new Promise((resolve, reject) => {
     loader.load(
-      "./../resources/model/2021_Modelo_Oficina_without_light.fbx",
+      "./../resources/model/oficina_modelo_web.fbx",
       (object) => {
         object.scale.set(0.0006, 0.0006, 0.0006);
 
