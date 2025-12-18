@@ -13,6 +13,9 @@
     <title>ATBIM - Development Platform</title>
     <link rel="stylesheet" href="./css/_base.css" />
     <link rel="stylesheet" href="./css/index.css" />
+    <!-- ✅ overlays/pantallas sin scroll -->
+    <link rel="stylesheet" href="./css/panels.css" />
+
     <link rel="shortcut icon" href="./public/atbim.ico" />
 
     <script type="importmap">
@@ -23,7 +26,293 @@
         }
       }
     </script>
+    <style>
+      /* Digital Twin Flow Styles */
+      .digital-twin-flow {
+        width: 100%;
+        padding: 3rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .flow-container {
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        position: relative;
+      }
+
+      /* Animación de entrada */
+      .circle,
+      .digital-twin,
+      .arrow-section {
+        opacity: 0;
+        transform: scale(0.8);
+        animation: fadeInScale 0.8s ease-out forwards;
+      }
+
+      .circle:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .arrow-section:nth-child(2) {
+        animation-delay: 0.5s;
+      }
+      .digital-twin {
+        animation-delay: 0.8s;
+      }
+      .arrow-section:nth-child(4) {
+        animation-delay: 1.1s;
+      }
+      .circle:nth-child(5) {
+        animation-delay: 1.4s;
+      }
+
+      @keyframes fadeInScale {
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Círculos */
+      .flow-container .circle {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .flow-container .circle h3 {
+        font-size: 1.2rem;
+        color: white;
+        text-align: center;
+        line-height: 1.3;
+        font-weight: 600;
+      }
+
+      .flow-container .circle .subtitle {
+        font-size: 0.65rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 0.4rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 500;
+      }
+
+      /* Physical World */
+      .flow-container .physical {
+        background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%);
+        box-shadow: 0 8px 32px rgba(132, 204, 22, 0.25);
+      }
+
+      /* Digital Twin */
+      .flow-container .digital-twin {
+        width: 240px;
+        height: 240px;
+        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+        position: relative;
+        border: 2px solid rgba(129, 140, 248, 0.3);
+      }
+
+      .flow-container .digital-twin::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: inherit;
+        background: linear-gradient(135deg, #818cf8, #ec4899, #2dd4bf);
+        opacity: 0;
+        animation: glowBorder 1.5s ease-out 0.8s forwards;
+        z-index: -1;
+      }
+
+      @keyframes glowBorder {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 0.6;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .flow-container .digital-twin-inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .flow-container .digital-twin h3 {
+        font-size: 1.4rem;
+        color: white;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .flow-container .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
+
+      /* Future World */
+      .flow-container .future {
+        background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        box-shadow: 0 8px 32px rgba(249, 115, 22, 0.25);
+      }
+
+      /* Arrows and Labels */
+      .flow-container .arrow-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        flex: 1;
+        position: relative;
+      }
+
+      .flow-container .arrow-group {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .flow-container .arrow {
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(148, 163, 184, 0.4),
+          rgba(148, 163, 184, 0.4),
+          transparent
+        );
+        position: relative;
+      }
+
+      .flow-container .arrow::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-left: 8px solid rgba(148, 163, 184, 0.6);
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+      }
+
+      .flow-container .arrow-reverse::after {
+        left: 0;
+        right: auto;
+        border-left: none;
+        border-right: 8px solid rgba(148, 163, 184, 0.6);
+      }
+
+      .flow-container .label {
+        padding: 0.4rem 1.2rem;
+        background: rgba(15, 23, 42, 0.8);
+        border-radius: 20px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        border: 1px solid;
+        white-space: nowrap;
+      }
+
+      .flow-container .label-green {
+        color: #84cc16;
+        border-color: rgba(132, 204, 22, 0.4);
+      }
+
+      .flow-container .label-orange {
+        color: #f97316;
+        border-color: rgba(249, 115, 22, 0.4);
+      }
+
+      /* Animación de líneas dibujándose */
+      .flow-container .arrow::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(129, 140, 248, 0.6)
+        );
+        animation: drawLine 0.6s ease-out forwards;
+      }
+
+      .flow-container .arrow-section:nth-child(2) .arrow::before {
+        animation-delay: 0.5s;
+      }
+
+      .flow-container .arrow-section:nth-child(4) .arrow::before {
+        animation-delay: 1.1s;
+      }
+
+      @keyframes drawLine {
+        to {
+          width: 100%;
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .flow-container {
+          flex-direction: column;
+          gap: 2rem;
+        }
+
+        .flow-container .arrow-section {
+          transform: rotate(90deg);
+          width: 120px;
+          gap: 1rem;
+        }
+
+        .flow-container .digital-twin {
+          width: 200px;
+          height: 200px;
+        }
+
+        .flow-container .circle {
+          width: 160px;
+          height: 160px;
+        }
+      }
+    </style>
   </head>
+
   <body>
     <header class="header">
       <nav class="nav-container">
@@ -36,41 +325,51 @@
         </div>
 
         <ul class="nav-menu">
-          <li><a href="#solutions" id="nav-solutions">Solutions</a></li>
           <li><a href="#technology" id="nav-technology">Technology</a></li>
+          <li><a href="#solutions" id="nav-solutions">Solutions</a></li>
           <li><a href="#resources" id="nav-resources">Resources</a></li>
           <li><a href="#about" id="nav-about">About Us</a></li>
         </ul>
 
         <div class="language-selector">
-          <button class="lang-btn active" data-lang="es">
-            <span>ES</span>
+          <button class="lang-btn active" data-lang="es" aria-label="Español">
+            <span class="flag flag-es"></span>
           </button>
-          <button class="lang-btn" data-lang="en">
-            <span>EN</span>
+
+          <button class="lang-btn" data-lang="en" aria-label="English">
+            <span class="flag flag-en"></span>
           </button>
         </div>
 
-        <a href="#contact" class="btn-contact" id="nav-contact-btn">
+        <!-- ✅ Contact abre panel (no scroll) -->
+        <a
+          href="#contact"
+          class="btn-contact"
+          id="nav-contact-btn"
+          data-open-panel="contact"
+        >
           Contact Us <span class="arrow">→</span>
         </a>
       </nav>
     </header>
 
     <!-- HERO -->
-    <section class="hero">
+    <section class="hero" data-panel="hero">
       <div class="hero-content">
         <div>
-          <h1 class="hero-title" id="hero-title">
-            BIM más ágil, eficiente y conectado.
-          </h1>
+          <h1 class="hero-title" id="hero-title">BI</h1>
           <h2 class="hero-subtitle" id="hero-subtitle">
             Agilizamos tu flujo de trabajo BIM con plugins y soluciones web a
             medida.
           </h2>
         </div>
         <article>
-          <button class="btn-primary" id="hero-cta">
+          <!-- ✅ abre Technology panel (sin scroll) -->
+          <button
+            class="btn-primary"
+            id="hero-cta"
+            data-open-panel="technology"
+          >
             Explore our Tech <span class="arrow">→</span>
           </button>
         </article>
@@ -78,8 +377,8 @@
     </section>
 
     <!-- SERVICIOS -->
-    <section class="cards-section" id="solutions">
-      <div class="cards-container">
+    <section class="atbim-panel" data-panel="services" id="solutions">
+      <div class="atbim-panel-inner">
         <h2 class="section-title" id="services-title">
           Nuestros <span class="highlight">Servicios</span>
         </h2>
@@ -89,7 +388,6 @@
         </p>
 
         <div class="cards-grid">
-          <!-- Card 1 - Plugins Revit -->
           <div class="card">
             <div class="card-icon">
               <svg
@@ -121,7 +419,6 @@
             </p>
           </div>
 
-          <!-- Card 2 - Aplicaciones Web -->
           <div class="card">
             <div class="card-icon">
               <svg
@@ -148,7 +445,6 @@
             </p>
           </div>
 
-          <!-- Card 3 - Integración IA -->
           <div class="card">
             <div class="card-icon">
               <svg
@@ -178,16 +474,15 @@
         </div>
 
         <p class="section-footer" id="services-footer">
-          Transformamos ideas en
-          <strong>soluciones tecnológicas</strong> que impulsan la innovación en
-          el sector de la construcción.
+          Transformamos ideas en <strong>soluciones tecnológicas</strong> que
+          impulsan la innovación en el sector de la construcción.
         </p>
       </div>
     </section>
 
-    <!-- COMANDOS IA -->
-    <section class="cards-section cards-section-alt" id="technology">
-      <div class="cards-container">
+    <!-- TECHNOLOGY -->
+    <section class="atbim-panel" data-panel="technology" id="technology">
+      <div class="atbim-panel-inner">
         <h2 class="section-title" id="commands-title">
           Del comando a la <span class="highlight">acción</span>
         </h2>
@@ -196,94 +491,57 @@
           Revit, interpretando instrucciones en texto o voz:
         </p>
 
-        <div class="cards-grid">
-          <!-- Card 1 -->
-          <div class="card">
-            <div class="card-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="9" y1="9" x2="15" y2="9"></line>
-                <line x1="9" y1="15" x2="15" y2="15"></line>
-              </svg>
+        <div class="digital-twin-flow">
+          <div class="flow-container">
+            <div class="circle physical">
+              <h3>Physical<br />World</h3>
+              <span class="subtitle">TODAY</span>
             </div>
-            <div class="card-badge" id="commands-card1-badge">Comando 1</div>
-            <p class="card-text" id="commands-card1-text">
-              "Ajusta todos los muros al nivel 2."
-            </p>
-          </div>
 
-          <!-- Card 2 -->
-          <div class="card">
-            <div class="card-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-                ></path>
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-              </svg>
+            <div class="arrow-section">
+              <div class="arrow-group">
+                <div class="label label-green">DATA CAPTURE</div>
+                <div class="arrow"></div>
+              </div>
+              <div class="arrow-group">
+                <div class="arrow arrow-reverse"></div>
+                <div class="label label-green">CHANGE</div>
+              </div>
             </div>
-            <div class="card-badge" id="commands-card2-badge">Comando 2</div>
-            <p class="card-text" id="commands-card2-text">
-              "Genera una vista 3D con los elementos estructurales."
-            </p>
-          </div>
 
-          <!-- Card 3 -->
-          <div class="card">
-            <div class="card-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                ></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
-              </svg>
+            <div class="digital-twin">
+              <div class="digital-twin-inner">
+                <h3>Digital Twin</h3>
+                <div class="actions">
+                  <div>DESCRIBE</div>
+                  <div>DECIDE</div>
+                </div>
+              </div>
             </div>
-            <div class="card-badge" id="commands-card3-badge">Comando 3</div>
-            <p class="card-text" id="commands-card3-text">
-              "Exporta el modelo con los materiales simplificados."
-            </p>
+
+            <div class="arrow-section">
+              <div class="arrow-group">
+                <div class="label label-orange">PREDICT</div>
+                <div class="arrow"></div>
+              </div>
+              <div class="arrow-group">
+                <div class="arrow arrow-reverse"></div>
+                <div class="label label-orange">PRESCRIBE</div>
+              </div>
+            </div>
+
+            <div class="circle future">
+              <h3>Future<br />Physical World</h3>
+              <span class="subtitle">FUTURE</span>
+            </div>
           </div>
         </div>
-
-        <p class="section-footer" id="commands-footer">
-          Detrás de cada comando, un
-          <strong>agente inteligente</strong> traduce tus palabras en acciones
-          reales dentro de Revit.
-        </p>
       </div>
     </section>
 
-    <!-- INTEGRACIÓN IA -->
-    <section class="bim-with-ia" id="resources">
-      <div class="bim-with-ia-content">
+    <!-- RESOURCES -->
+    <section class="atbim-panel" data-panel="resources" id="resources">
+      <div class="atbim-panel-inner bim-with-ia-content">
         <div class="bim-with-ia-left">
           <h2 id="integration-title">
             <span>I</span><span>n</span><span>t</span><span>e</span
@@ -325,6 +583,7 @@
             </li>
           </ul>
         </div>
+
         <div class="bim-with-ia-right">
           <div class="illustration">
             <svg
@@ -360,169 +619,146 @@
       </div>
     </section>
 
-    <!-- PROYECTOS -->
-    <section class="sectrionProyectos" id="about">
-      <div class="containerProyectTitle">
-        <div class="titleProyectos" id="projects-title">Nuestros proyectos</div>
-        <div class="proyectos">
-          <div class="cols">
-            <figure class="mitem">
-              <img src="resources/images/financial.PNG" alt="Proyecto A" />
-              <div class="overlay">
-                <p id="project1-overlay">
-                  Análisis financiero avanzado con proyecciones de inversión.
+    <!-- ABOUT (NUEVO diseño tipo "equipo") -->
+    <section class="atbim-panel" data-panel="about" id="about">
+      <div class="atbim-panel-inner">
+        <section class="about-hero">
+          <div class="about-banner">
+            <div class="about-banner-overlay"></div>
+            <div class="about-banner-inner">
+              <div class="about-brand">
+                <span class="about-kicker" id="about-kicker">Equipo</span>
+                <h2 class="about-title" id="about-title">
+                  Quiénes somos | Equipo ATBIM
+                </h2>
+                <p class="about-subtitle" id="about-subtitle">
+                  Realizamos consultoría BIM con altas exigencias. Trabajamos en
+                  equipo con el objetivo de optimizar y automatizar los procesos
+                  de construcción.
                 </p>
-              </div>
-              <figcaption id="project1-caption">Financial analysis</figcaption>
-            </figure>
 
-            <figure class="mitem">
-              <img src="resources/images/jit1.JPG" alt="Proyecto B" />
-              <div class="overlay">
-                <p id="project2-overlay">
-                  Desarrollo de viviendas sostenibles con arquitectura modular.
-                </p>
+                <!-- ✅ CTA: cierra about y abre contacto -->
+                <a
+                  class="about-cta"
+                  href="#contact"
+                  data-open-panel="contact"
+                  id="about-cta"
+                >
+                  Forma parte de nuestro equipo <span class="arrow">→</span>
+                </a>
               </div>
-              <figcaption id="project2-caption">Jit Housing</figcaption>
-            </figure>
-
-            <figure class="mitem">
-              <img src="resources/images/financial.PNG" alt="Proyecto C" />
-              <div class="overlay">
-                <p id="project3-overlay">
-                  Ejemplo de gestión digital aplicada a la planificación urbana.
-                </p>
-              </div>
-              <figcaption id="project3-caption">Proyecto ejemplo</figcaption>
-            </figure>
+            </div>
           </div>
-        </div>
+
+          <div class="about-grid">
+            <div class="about-card">
+              <h3 class="about-card-title">Reconocimientos y trayectoria</h3>
+              <ul class="about-list">
+                <li>Fundadores del grupo BIM Aragón - 2015</li>
+                <li>Miembros Building Smart Spanish Chapter - 2017</li>
+                <li>ADN (Autodesk Development Network) - 2017</li>
+                <li>Finalistas concurso IDEA (AREX Aragón Exterior) - 2018</li>
+                <li>Team 4.0 Digital Hackathon (Built Europe) - 2018</li>
+                <li>Dirección del Máster BIM USJ - Desde 2018</li>
+              </ul>
+            </div>
+
+            <div class="about-card">
+              <h3 class="about-card-title">Publicaciones y ponencias</h3>
+              <ul class="about-list">
+                <li>Ponentes en Jornada BIM CIVIL UEM - 2016</li>
+                <li>Publicación Revista Cimbra - 2017</li>
+                <li>Publicación libro Abstracts Contart - 2018</li>
+                <li>Revista Building Smart Spanish Chapter - 2018</li>
+                <li>Ponentes congreso XXXVI Zaragoza</li>
+                <li>Ponentes BIMTour 2018-2019</li>
+              </ul>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
 
-    <!-- CONTACTO -->
-    <section id="contact" class="contact-section">
-      <div class="contact-container">
-        <div class="contact-info">
-          <div class="contact-info-card">
-            <div>
-              <h2 id="contact-main-title">Hablemos</h2>
-              <p id="contact-main-text">
-                Si tienes dudas o quieres más información sobre nuestros
-                servicios, no dudes en enviarnos un mensaje. ¡Estamos para
-                ayudarte!
-              </p>
-            </div>
-          </div>
-          <div class="contact-info-card">
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-phone-icon lucide-phone"
-              >
-                <path
-                  d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"
-                />
-              </svg>
-            </span>
-            <a href="tel:+34660514455">+34 660 51 44 55</a>
-          </div>
-          <div class="contact-info-card">
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-mail-icon lucide-mail"
-              >
-                <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
-                <rect x="2" y="4" width="20" height="16" rx="2" />
-              </svg>
-            </span>
-            <a href="mailto:info@atbim.es">info@atbim.es</a>
-          </div>
-          <div class="contact-info-card">
-            <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-map-pin-icon lucide-map-pin"
-              >
-                <path
-                  d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
-                />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-            </span>
-            Avenida Ranillas 3C, 1º, Oficina B, 50018, Zaragoza
-          </div>
-        </div>
+    <!-- CONTACTO (panel overlay, sin scroll página) -->
+    <section class="atbim-panel" data-panel="contact" id="contact">
+      <div class="atbim-panel-inner">
+        <section class="contact-section">
+          <div class="contact-container">
+            <div class="contact-info">
+              <div class="contact-info-card">
+                <div>
+                  <h2 id="contact-main-title">Hablemos</h2>
+                  <p id="contact-main-text">
+                    Si tienes dudas o quieres más información sobre nuestros
+                    servicios, no dudes en enviarnos un mensaje. ¡Estamos para
+                    ayudarte!
+                  </p>
+                </div>
+              </div>
 
-        <div class="contact-form">
-          <h2 id="contact-form-title">Contáctanos</h2>
-          <form action="/send-message" method="POST">
-            <div>
-              <label for="name" id="contact-name-label">Nombre:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Tu nombre"
-                required
-              />
+              <div class="contact-info-card">
+                <span><!-- svg phone --></span>
+                <a href="tel:+34660514455">+34 660 51 44 55</a>
+              </div>
+
+              <div class="contact-info-card">
+                <span><!-- svg mail --></span>
+                <a href="mailto:info@atbim.es">info@atbim.es</a>
+              </div>
+
+              <div class="contact-info-card">
+                <span><!-- svg map --></span>
+                Avenida Ranillas 3C, 1º, Oficina B, 50018, Zaragoza
+              </div>
             </div>
 
-            <div>
-              <label for="email" id="contact-email-label">
-                Correo electrónico:
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Tu correo"
-                required
-              />
-            </div>
+            <div class="contact-form">
+              <h2 id="contact-form-title">Contáctanos</h2>
+              <form action="/send-message" method="POST">
+                <div>
+                  <label for="name" id="contact-name-label">Nombre:</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Tu nombre"
+                    required
+                  />
+                </div>
 
-            <div>
-              <label for="message" id="contact-message-label">Mensaje:</label>
-              <textarea
-                id="message"
-                name="message"
-                placeholder="Escribe tu mensaje aquí..."
-                required
-              ></textarea>
-            </div>
+                <div>
+                  <label for="email" id="contact-email-label"
+                    >Correo electrónico:</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Tu correo"
+                    required
+                  />
+                </div>
 
-            <button type="submit" id="contact-submit-btn">Enviar</button>
-          </form>
-        </div>
+                <div>
+                  <label for="message" id="contact-message-label"
+                    >Mensaje:</label
+                  >
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Escribe tu mensaje aquí..."
+                    required
+                  ></textarea>
+                </div>
+
+                <button type="submit" id="contact-submit-btn">Enviar</button>
+              </form>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="footer">
       <div class="footer-container">
         <p id="footer-text">&copy; ATBIM - Building Engineering.</p>
@@ -530,6 +766,69 @@
     </footer>
 
     <script type="module" src="./js/index.js"></script>
+
+    <!-- Canvas 3D -->
     <div id="scene-container"></div>
+
+    <!-- ✅ Router de panels SIN SCROLL (no toca tu Three.js) -->
+    <script>
+      (function () {
+        const body = document.body;
+        const panels = Array.from(document.querySelectorAll(".atbim-panel"));
+
+        function openPanel(name) {
+          panels.forEach((p) => p.classList.remove("is-active"));
+          const el = document.querySelector(
+            `.atbim-panel[data-panel="${name}"]`
+          );
+          if (el) {
+            el.classList.add("is-active");
+            body.classList.add("panel-open");
+            body.classList.add("hero-is-hidden");
+          }
+        }
+
+        // ✅ No scroll en la página
+        body.style.overflow = "hidden";
+
+        // A) click en cualquier cosa con data-open-panel
+        document.addEventListener("click", (e) => {
+          const el = e.target.closest("[data-open-panel]");
+          if (!el) return;
+          e.preventDefault();
+          openPanel(el.getAttribute("data-open-panel"));
+        });
+
+        // B) nav links #technology/#solutions/#resources/#about => abren panel (sin scroll)
+        document.addEventListener("click", (e) => {
+          const a = e.target.closest('a[href^="#"]');
+          if (!a) return;
+
+          const hash = a.getAttribute("href");
+          if (!hash || hash === "#") return;
+
+          const name = hash.replace("#", "");
+          const isPanel = document.querySelector(
+            `.atbim-panel[data-panel="${name}"]`
+          );
+
+          if (isPanel && !a.hasAttribute("data-open-panel")) {
+            e.preventDefault();
+            openPanel(name);
+          }
+        });
+
+        // C) ESC cierra (vuelve a hero)
+        document.addEventListener("keydown", (e) => {
+          if (e.key !== "Escape") return;
+          panels.forEach((p) => p.classList.remove("is-active"));
+          body.classList.remove("panel-open");
+          body.classList.remove("hero-is-hidden");
+        });
+      })();
+    </script>
   </body>
 </html>
+
+//button de volver tiene que estar en idoma, nuevo apartado en ingles tambien,
+buttons de hotpots en ingles tammbien y apartado de solucuiones

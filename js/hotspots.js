@@ -1,6 +1,6 @@
 export const HOTSPOTS = [
    {
-  id: "Zona 1",
+  id: "Sobre Nosotros",
   buttonX: 0.82,
   buttonZ: -0.6,
   focusX: 2.4,
@@ -9,7 +9,9 @@ export const HOTSPOTS = [
 },
 
   {
-    id: "About Us",
+    id: "Soluciones",
+    buttonX: -0.1,
+    buttonZ: -0.05,
     buttonX: -0.19,
     buttonZ: -0.6,
     focusX: -0.36,  
@@ -17,7 +19,7 @@ export const HOTSPOTS = [
     focusY: 0.45,    
   },
   {
-    id: "Resources",
+    id: "Recursos",
     buttonX: 0.40,
     buttonZ: -0.6,
     focusX: 0.82,
@@ -25,7 +27,7 @@ export const HOTSPOTS = [
     focusY: 0.02,
   },
   {
-    id: "Technology",
+    id: "Tecnnología",
     buttonX: -0.01,
     buttonZ: -0.05,
     focusX: -0.01,
