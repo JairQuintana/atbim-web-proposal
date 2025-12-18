@@ -13,7 +13,7 @@
     <title>ATBIM - Development Platform</title>
     <link rel="stylesheet" href="./css/_base.css" />
     <link rel="stylesheet" href="./css/index.css" />
-    <!-- ✅ NUEVO: overlays/pantallas sin scroll -->
+    <!-- ✅ overlays/pantallas sin scroll -->
     <link rel="stylesheet" href="./css/panels.css" />
 
     <link rel="shortcut icon" href="./public/atbim.ico" />
@@ -26,236 +26,6 @@
         }
       }
     </script>
-  </head>
-
-  <body>
-    <header class="header">
-      <nav class="nav-container">
-        <div class="logo">
-          <img
-            src="./resources/images/atbimName.png"
-            width="180"
-            alt="ATBIM Logo"
-          />
-        </div>
-
-        <ul class="nav-menu">
-          <li><a href="#technology" id="nav-technology">Technology</a></li>
-          <li><a href="#solutions" id="nav-solutions">Solutions</a></li>
-
-          <li><a href="#resources" id="nav-resources">Resources</a></li>
-          <li><a href="#about" id="nav-about">About Us</a></li>
-        </ul>
-
-        <div class="language-selector">
-          <button class="lang-btn active" data-lang="es" aria-label="Español">
-            <span class="flag flag-es"></span>
-          </button>
-
-          <button class="lang-btn" data-lang="en" aria-label="English">
-            <span class="flag flag-en"></span>
-          </button>
-        </div>
-
-        <a href="#contact" class="btn-contact" id="nav-contact-btn">
-          Contact Us <span class="arrow">→</span>
-        </a>
-      </nav>
-    </header>
-
-    <!-- HERO (lo mantengo, pero luego lo ocultas con hideHero()) -->
-    <section class="hero" data-panel="hero">
-      <div class="hero-content">
-        <div>
-          <h1 class="hero-title" id="hero-title">
-            BI
-          </h1>
-          <h2 class="hero-subtitle" id="hero-subtitle">
-            Agilizamos tu flujo de trabajo BIM con plugins y soluciones web a
-            medida.
-          </h2>
-        </div>
-        <article>
-          <button class="btn-primary" id="hero-cta">
-            Explore our Tech <span class="arrow">→</span>
-          </button>
-        </article>
-      </div>
-    </section>
-
-    <!-- ✅ PANTALLAS (sin scroll): las mismas secciones, pero como overlays -->
-    <!-- SERVICIOS -->
-    <section class="atbim-panel" data-panel="services" id="solutions">
-      <div class="atbim-panel-inner">
-        <h2 class="section-title" id="services-title">
-          Nuestros <span class="highlight">Servicios</span>
-        </h2>
-        <p class="section-subtitle" id="services-subtitle">
-          Especializados en soluciones tecnológicas para el sector AEC,
-          desarrollamos herramientas que optimizan tu flujo de trabajo.
-        </p>
-
-        <div class="cards-grid">
-          <div class="card">
-            <div class="card-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-                ></path>
-                <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
-                <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
-                <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-              </svg>
-            </div>
-            <div class="card-badge" id="services-card1-badge">
-              Plugins Revit
-            </div>
-            <p class="card-text" id="services-card1-text">
-              Desarrollamos plugins personalizados para Autodesk Revit que
-              automatizan tareas repetitivas y optimizan tu flujo de trabajo BIM
-              con inteligencia artificial.
-            </p>
-          </div>
-
-          <div class="card">
-            <div class="card-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                <line x1="8" y1="21" x2="16" y2="21"></line>
-                <line x1="12" y1="17" x2="12" y2="21"></line>
-              </svg>
-            </div>
-            <div class="card-badge" id="services-card2-badge">
-              Aplicaciones Web
-            </div>
-            <p class="card-text" id="services-card2-text">
-              Creamos aplicaciones web modernas y escalables para la gestión de
-              proyectos de construcción, visualización de modelos BIM y
-              colaboración en tiempo real.
-            </p>
-          </div>
-
-          <div class="card">
-            <div class="card-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 16v-4"></path>
-                <path d="M12 8h.01"></path>
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-              </svg>
-            </div>
-            <div class="card-badge" id="services-card3-badge">
-              Integración IA
-            </div>
-            <p class="card-text" id="services-card3-text">
-              Integramos modelos de lenguaje avanzados (IA) en tus herramientas
-              BIM para interpretar comandos en lenguaje natural y ejecutar
-              acciones automáticas.
-            </p>
-          </div>
-        </div>
-
-        <p class="section-footer" id="services-footer">
-          Transformamos ideas en <strong>soluciones tecnológicas</strong> que
-          impulsan la innovación en el sector de la construcción.
-        </p>
-      </div>
-    </section>
-
-    <!-- TECHNOLOGY / COMANDOS IA -->
-    <!-- TECHNOLOGY / COMANDOS IA -->
-    <section class="atbim-panel" data-panel="technology" id="technology">
-      <div class="atbim-panel-inner">
-        <h2 class="section-title" id="commands-title">
-          Del comando a la <span class="highlight">acción</span>
-        </h2>
-        <p class="section-subtitle" id="commands-subtitle">
-          Nuestros plugins integran modelos de lenguaje (IA) directamente en
-          Revit, interpretando instrucciones en texto o voz:
-        </p>
-
-        <!-- Digital Twin Visualization -->
-        <div class="digital-twin-flow">
-          <div class="flow-container">
-            <!-- Physical World -->
-            <div class="circle physical">
-              <h3>Physical<br />World</h3>
-              <span class="subtitle">TODAY</span>
-            </div>
-
-            <!-- Left Arrows -->
-            <div class="arrow-section">
-              <div class="arrow-group">
-                <div class="label label-green">DATA CAPTURE</div>
-                <div class="arrow"></div>
-              </div>
-              <div class="arrow-group">
-                <div class="arrow arrow-reverse"></div>
-                <div class="label label-green">CHANGE</div>
-              </div>
-            </div>
-
-            <!-- Digital Twin -->
-            <div class="digital-twin">
-              <div class="digital-twin-inner">
-                <h3>Digital Twin</h3>
-                <div class="actions">
-                  <div>DESCRIBE</div>
-                  <div>DECIDE</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Right Arrows -->
-            <div class="arrow-section">
-              <div class="arrow-group">
-                <div class="label label-orange">PREDICT</div>
-                <div class="arrow"></div>
-              </div>
-              <div class="arrow-group">
-                <div class="arrow arrow-reverse"></div>
-                <div class="label label-orange">PRESCRIBE</div>
-              </div>
-            </div>
-
-            <!-- Future Physical World -->
-            <div class="circle future">
-              <h3>Future<br />Physical World</h3>
-              <span class="subtitle">FUTURE</span>
-            </div>
-          </div>
-        </div>
-
-        
-      </div>
-    </section>
-
     <style>
       /* Digital Twin Flow Styles */
       .digital-twin-flow {
@@ -541,30 +311,247 @@
         }
       }
     </style>
+  </head>
 
-    <!-- RESOURCES / INTEGRACIÓN IA -->
+  <body>
+    <header class="header">
+      <nav class="nav-container">
+        <div class="logo">
+          <img
+            src="./resources/images/atbimName.png"
+            width="180"
+            alt="ATBIM Logo"
+          />
+        </div>
+
+        <ul class="nav-menu">
+          <li><a href="#technology" id="nav-technology">Technology</a></li>
+          <li><a href="#solutions" id="nav-solutions">Solutions</a></li>
+          <li><a href="#resources" id="nav-resources">Resources</a></li>
+          <li><a href="#about" id="nav-about">About Us</a></li>
+        </ul>
+
+        <div class="language-selector">
+          <button class="lang-btn active" data-lang="es" aria-label="Español">
+            <span class="flag flag-es"></span>
+          </button>
+
+          <button class="lang-btn" data-lang="en" aria-label="English">
+            <span class="flag flag-en"></span>
+          </button>
+        </div>
+
+        <!-- ✅ Contact abre panel (no scroll) -->
+        <a
+          href="#contact"
+          class="btn-contact"
+          id="nav-contact-btn"
+          data-open-panel="contact"
+        >
+          Contact Us <span class="arrow">→</span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" data-panel="hero">
+      <div class="hero-content">
+        <div>
+          <h1 class="hero-title" id="hero-title">BI</h1>
+          <h2 class="hero-subtitle" id="hero-subtitle">
+            Agilizamos tu flujo de trabajo BIM con plugins y soluciones web a
+            medida.
+          </h2>
+        </div>
+        <article>
+          <!-- ✅ abre Technology panel (sin scroll) -->
+          <button class="btn-primary" id="hero-cta" data-open-panel="technology">
+            Explore our Tech <span class="arrow">→</span>
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="atbim-panel" data-panel="services" id="solutions">
+      <div class="atbim-panel-inner">
+        <h2 class="section-title" id="services-title">
+          Nuestros <span class="highlight">Servicios</span>
+        </h2>
+        <p class="section-subtitle" id="services-subtitle">
+          Especializados en soluciones tecnológicas para el sector AEC,
+          desarrollamos herramientas que optimizan tu flujo de trabajo.
+        </p>
+
+        <div class="cards-grid">
+          <div class="card">
+            <div class="card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                ></path>
+                <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <div class="card-badge" id="services-card1-badge">Plugins Revit</div>
+            <p class="card-text" id="services-card1-text">
+              Desarrollamos plugins personalizados para Autodesk Revit que
+              automatizan tareas repetitivas y optimizan tu flujo de trabajo BIM
+              con inteligencia artificial.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <div class="card-badge" id="services-card2-badge">
+              Aplicaciones Web
+            </div>
+            <p class="card-text" id="services-card2-text">
+              Creamos aplicaciones web modernas y escalables para la gestión de
+              proyectos de construcción, visualización de modelos BIM y
+              colaboración en tiempo real.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 16v-4"></path>
+                <path d="M12 8h.01"></path>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              </svg>
+            </div>
+            <div class="card-badge" id="services-card3-badge">Integración IA</div>
+            <p class="card-text" id="services-card3-text">
+              Integramos modelos de lenguaje avanzados (IA) en tus herramientas
+              BIM para interpretar comandos en lenguaje natural y ejecutar
+              acciones automáticas.
+            </p>
+          </div>
+        </div>
+
+        <p class="section-footer" id="services-footer">
+          Transformamos ideas en <strong>soluciones tecnológicas</strong> que
+          impulsan la innovación en el sector de la construcción.
+        </p>
+      </div>
+    </section>
+
+    <!-- TECHNOLOGY -->
+    <section class="atbim-panel" data-panel="technology" id="technology">
+      <div class="atbim-panel-inner">
+        <h2 class="section-title" id="commands-title">
+          Del comando a la <span class="highlight">acción</span>
+        </h2>
+        <p class="section-subtitle" id="commands-subtitle">
+          Nuestros plugins integran modelos de lenguaje (IA) directamente en
+          Revit, interpretando instrucciones en texto o voz:
+        </p>
+
+        <div class="digital-twin-flow">
+          <div class="flow-container">
+            <div class="circle physical">
+              <h3>Physical<br />World</h3>
+              <span class="subtitle">TODAY</span>
+            </div>
+
+            <div class="arrow-section">
+              <div class="arrow-group">
+                <div class="label label-green">DATA CAPTURE</div>
+                <div class="arrow"></div>
+              </div>
+              <div class="arrow-group">
+                <div class="arrow arrow-reverse"></div>
+                <div class="label label-green">CHANGE</div>
+              </div>
+            </div>
+
+            <div class="digital-twin">
+              <div class="digital-twin-inner">
+                <h3>Digital Twin</h3>
+                <div class="actions">
+                  <div>DESCRIBE</div>
+                  <div>DECIDE</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="arrow-section">
+              <div class="arrow-group">
+                <div class="label label-orange">PREDICT</div>
+                <div class="arrow"></div>
+              </div>
+              <div class="arrow-group">
+                <div class="arrow arrow-reverse"></div>
+                <div class="label label-orange">PRESCRIBE</div>
+              </div>
+            </div>
+
+            <div class="circle future">
+              <h3>Future<br />Physical World</h3>
+              <span class="subtitle">FUTURE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
     <section class="atbim-panel" data-panel="resources" id="resources">
       <div class="atbim-panel-inner bim-with-ia-content">
         <div class="bim-with-ia-left">
           <h2 id="integration-title">
-            <span>I</span><span>n</span><span>t</span><span>e</span
-            ><span>g</span><span>r</span><span>a</span><span>c</span
-            ><span>i</span><span>ó</span><span>n</span>
+            <span>I</span><span>n</span><span>t</span><span>e</span><span>g</span
+            ><span>r</span><span>a</span><span>c</span><span>i</span><span>ó</span
+            ><span>n</span>
             &nbsp;
             <span>d</span><span>e</span>
             &nbsp;
-            <span>I</span><span>n</span><span>t</span><span>e</span
-            ><span>l</span><span>i</span><span>g</span><span>e</span
-            ><span>n</span><span>c</span><span>i</span><span>a</span>
+            <span>I</span><span>n</span><span>t</span><span>e</span><span>l</span
+            ><span>i</span><span>g</span><span>e</span><span>n</span><span>c</span
+            ><span>i</span><span>a</span>
             &nbsp;
-            <span>A</span><span>r</span><span>t</span><span>i</span
-            ><span>f</span><span>i</span><span>c</span><span>i</span
-            ><span>a</span>
+            <span>A</span><span>r</span><span>t</span><span>i</span><span>f</span
+            ><span>i</span><span>c</span><span>i</span><span>a</span>
             &nbsp;
             <span>e</span><span>n</span>
             &nbsp;
-            <span>R</span><span>e</span><span>v</span><span>i</span
-            ><span>t</span>
+            <span>R</span><span>e</span><span>v</span><span>i</span><span>t</span>
           </h2>
 
           <p id="integration-paragraph">
@@ -622,164 +609,144 @@
       </div>
     </section>
 
-    <!-- ABOUT / PROYECTOS (tu cinematic) -->
+    <!-- ABOUT (NUEVO diseño tipo "equipo") -->
     <section class="atbim-panel" data-panel="about" id="about">
       <div class="atbim-panel-inner">
-        <section class="projects-cine">
-          <div class="pc-header">
-            <h2 class="pc-title" id="projects-title">Nuestros proyectos</h2>
-            <p class="pc-subtitle">
-              Presentaciones reales. Producto real. Impacto real.
-            </p>
-          </div>
+        <section class="about-hero">
+          <div class="about-banner">
+            <div class="about-banner-overlay"></div>
+            <div class="about-banner-inner">
+              <div class="about-brand">
+                <span class="about-kicker" id="about-kicker">Equipo</span>
+                <h2 class="about-title" id="about-title">
+                  Quiénes somos | Equipo ATBIM
+                </h2>
+                <p class="about-subtitle" id="about-subtitle">
+                  Realizamos consultoría BIM con altas exigencias. Trabajamos en
+                  equipo con el objetivo de optimizar y automatizar los procesos
+                  de construcción.
+                </p>
 
-          <div class="pc-stage" id="pc-stage">
-            <div class="pc-bg" id="pc-bg"></div>
-
-            <div class="pc-slide">
-              <div class="pc-media">
-                <img id="pc-img" alt="" />
-                <div class="pc-vignette"></div>
-                <div class="pc-sweep"></div>
-              </div>
-
-              <div class="pc-content">
-                <div class="pc-index" id="pc-index">01</div>
-                <h3 class="pc-name" id="pc-title"></h3>
-                <p class="pc-desc" id="pc-desc"></p>
-
-                <div class="pc-actions">
-                  <button class="pc-btn pc-prev" id="pc-prev">←</button>
-                  <div class="pc-dots" id="pc-dots"></div>
-                  <button class="pc-btn pc-next" id="pc-next">→</button>
-                </div>
+                <!-- ✅ CTA: cierra about y abre contacto -->
+                <a
+                  class="about-cta"
+                  href="#contact"
+                  data-open-panel="contact"
+                  id="about-cta"
+                >
+                  Forma parte de nuestro equipo <span class="arrow">→</span>
+                </a>
               </div>
             </div>
           </div>
 
-          <div class="pc-data" hidden>
-            <div
-              class="pc-item"
-              data-img="resources/images/financial.PNG"
-              data-title-id="project1-caption"
-              data-desc-id="project1-overlay"
-            ></div>
-            <div
-              class="pc-item"
-              data-img="resources/images/jit1.JPG"
-              data-title-id="project2-caption"
-              data-desc-id="project2-overlay"
-            ></div>
-            <div
-              class="pc-item"
-              data-img="resources/images/financial.PNG"
-              data-title-id="project3-caption"
-              data-desc-id="project3-overlay"
-            ></div>
+          <div class="about-grid">
+            <div class="about-card">
+              <h3 class="about-card-title">Reconocimientos y trayectoria</h3>
+              <ul class="about-list">
+                <li>Fundadores del grupo BIM Aragón - 2015</li>
+                <li>Miembros Building Smart Spanish Chapter - 2017</li>
+                <li>ADN (Autodesk Development Network) - 2017</li>
+                <li>Finalistas concurso IDEA (AREX Aragón Exterior) - 2018</li>
+                <li>Team 4.0 Digital Hackathon (Built Europe) - 2018</li>
+                <li>Dirección del Máster BIM USJ - Desde 2018</li>
+              </ul>
+            </div>
 
-            <span id="project1-caption">Financial analysis</span>
-            <span id="project1-overlay"
-              >Análisis financiero avanzado con proyecciones de inversión.</span
-            >
-
-            <span id="project2-caption">Jit Housing</span>
-            <span id="project2-overlay"
-              >Desarrollo de viviendas sostenibles con arquitectura
-              modular.</span
-            >
-
-            <span id="project3-caption">Proyecto ejemplo</span>
-            <span id="project3-overlay"
-              >Ejemplo de gestión digital aplicada a la planificación
-              urbana.</span
-            >
+            <div class="about-card">
+              <h3 class="about-card-title">Publicaciones y ponencias</h3>
+              <ul class="about-list">
+                <li>Ponentes en Jornada BIM CIVIL UEM - 2016</li>
+                <li>Publicación Revista Cimbra - 2017</li>
+                <li>Publicación libro Abstracts Contart - 2018</li>
+                <li>Revista Building Smart Spanish Chapter - 2018</li>
+                <li>Ponentes congreso XXXVI Zaragoza</li>
+                <li>Ponentes BIMTour 2018-2019</li>
+              </ul>
+            </div>
           </div>
         </section>
       </div>
     </section>
 
-    <!-- CONTACTO -->
-    <!-- CONTACTO (VUELVE A SER SECCIÓN NORMAL CON SCROLL) -->
-    <section id="contact" class="contact-section">
-      <div class="contact-container">
-        <div class="contact-info">
-          <div class="contact-info-card">
-            <div>
-              <h2 id="contact-main-title">Hablemos</h2>
-              <p id="contact-main-text">
-                Si tienes dudas o quieres más información sobre nuestros
-                servicios, no dudes en enviarnos un mensaje. ¡Estamos para
-                ayudarte!
-              </p>
-            </div>
-          </div>
+    <!-- CONTACTO (panel overlay, sin scroll página) -->
+    <section class="atbim-panel" data-panel="contact" id="contact">
+      <div class="atbim-panel-inner">
+        <section class="contact-section">
+          <div class="contact-container">
+            <div class="contact-info">
+              <div class="contact-info-card">
+                <div>
+                  <h2 id="contact-main-title">Hablemos</h2>
+                  <p id="contact-main-text">
+                    Si tienes dudas o quieres más información sobre nuestros
+                    servicios, no dudes en enviarnos un mensaje. ¡Estamos para
+                    ayudarte!
+                  </p>
+                </div>
+              </div>
 
-          <div class="contact-info-card">
-            <span>
-              <!-- svg phone -->
-            </span>
-            <a href="tel:+34660514455">+34 660 51 44 55</a>
-          </div>
+              <div class="contact-info-card">
+                <span><!-- svg phone --></span>
+                <a href="tel:+34660514455">+34 660 51 44 55</a>
+              </div>
 
-          <div class="contact-info-card">
-            <span>
-              <!-- svg mail -->
-            </span>
-            <a href="mailto:info@atbim.es">info@atbim.es</a>
-          </div>
+              <div class="contact-info-card">
+                <span><!-- svg mail --></span>
+                <a href="mailto:info@atbim.es">info@atbim.es</a>
+              </div>
 
-          <div class="contact-info-card">
-            <span>
-              <!-- svg map -->
-            </span>
-            Avenida Ranillas 3C, 1º, Oficina B, 50018, Zaragoza
-          </div>
-        </div>
-
-        <div class="contact-form">
-          <h2 id="contact-form-title">Contáctanos</h2>
-          <form action="/send-message" method="POST">
-            <div>
-              <label for="name" id="contact-name-label">Nombre:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Tu nombre"
-                required
-              />
+              <div class="contact-info-card">
+                <span><!-- svg map --></span>
+                Avenida Ranillas 3C, 1º, Oficina B, 50018, Zaragoza
+              </div>
             </div>
 
-            <div>
-              <label for="email" id="contact-email-label"
-                >Correo electrónico:</label
-              >
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Tu correo"
-                required
-              />
-            </div>
+            <div class="contact-form">
+              <h2 id="contact-form-title">Contáctanos</h2>
+              <form action="/send-message" method="POST">
+                <div>
+                  <label for="name" id="contact-name-label">Nombre:</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Tu nombre"
+                    required
+                  />
+                </div>
 
-            <div>
-              <label for="message" id="contact-message-label">Mensaje:</label>
-              <textarea
-                id="message"
-                name="message"
-                placeholder="Escribe tu mensaje aquí..."
-                required
-              ></textarea>
-            </div>
+                <div>
+                  <label for="email" id="contact-email-label"
+                    >Correo electrónico:</label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Tu correo"
+                    required
+                  />
+                </div>
 
-            <button type="submit" id="contact-submit-btn">Enviar</button>
-          </form>
-        </div>
+                <div>
+                  <label for="message" id="contact-message-label">Mensaje:</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Escribe tu mensaje aquí..."
+                    required
+                  ></textarea>
+                </div>
+
+                <button type="submit" id="contact-submit-btn">Enviar</button>
+              </form>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
 
-    <!-- FOOTER (opcional: lo dejo, pero no scrollea) -->
     <footer class="footer">
       <div class="footer-container">
         <p id="footer-text">&copy; ATBIM - Building Engineering.</p>
@@ -790,5 +757,64 @@
 
     <!-- Canvas 3D -->
     <div id="scene-container"></div>
+
+    <!-- ✅ Router de panels SIN SCROLL (no toca tu Three.js) -->
+    <script>
+      (function () {
+        const body = document.body;
+        const panels = Array.from(document.querySelectorAll(".atbim-panel"));
+
+        function openPanel(name) {
+          panels.forEach((p) => p.classList.remove("is-active"));
+          const el = document.querySelector(`.atbim-panel[data-panel="${name}"]`);
+          if (el) {
+            el.classList.add("is-active");
+            body.classList.add("panel-open");
+            body.classList.add("hero-is-hidden");
+          }
+        }
+
+        // ✅ No scroll en la página
+        body.style.overflow = "hidden";
+
+        // A) click en cualquier cosa con data-open-panel
+        document.addEventListener("click", (e) => {
+          const el = e.target.closest("[data-open-panel]");
+          if (!el) return;
+          e.preventDefault();
+          openPanel(el.getAttribute("data-open-panel"));
+        });
+
+        // B) nav links #technology/#solutions/#resources/#about => abren panel (sin scroll)
+        document.addEventListener("click", (e) => {
+          const a = e.target.closest('a[href^="#"]');
+          if (!a) return;
+
+          const hash = a.getAttribute("href");
+          if (!hash || hash === "#") return;
+
+          const name = hash.replace("#", "");
+          const isPanel = document.querySelector(
+            `.atbim-panel[data-panel="${name}"]`
+          );
+
+          if (isPanel && !a.hasAttribute("data-open-panel")) {
+            e.preventDefault();
+            openPanel(name);
+          }
+        });
+
+        // C) ESC cierra (vuelve a hero)
+        document.addEventListener("keydown", (e) => {
+          if (e.key !== "Escape") return;
+          panels.forEach((p) => p.classList.remove("is-active"));
+          body.classList.remove("panel-open");
+          body.classList.remove("hero-is-hidden");
+        });
+      })();
+    </script>
   </body>
 </html>
+
+
+//button de volver tiene que estar en idoma, nuevo apartado en ingles tambien, buttons de hotpots en ingles tammbien y apartado de solucuiones
