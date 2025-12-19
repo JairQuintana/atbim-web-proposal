@@ -724,7 +724,7 @@ body.hero-is-hidden #hero-subtitle {
 
 .about-banner-inner {
   position: relative;
-  padding: 46px 28px;
+  padding: 20px 25px;
   display: grid;
   gap: 18px;
 }

@@ -14,7 +14,7 @@ export const translations = {
 
     heroSubtitleMobile:
       "Un gemelo digital representa cómo las personas interactúan con los entornos construidos.",
-    heroCta: "Explora nuestra tecnología",
+ 
 
     servicesTitle: 'Nuestros <span class="highlight">Servicios</span>',
     servicesSubtitle:
@@ -136,14 +136,17 @@ export const translations = {
 
     futurePhysicalWorldTitle: "Futuro<br />Mundo Físico",
     futureWorldFuture: "FUTURO",
-        // ✅ RESOURCES PANEL
+    // ✅ RESOURCES PANEL
     resourcesKicker: "Recursos",
     resourcesCallout:
       "Pensado para equipos AEC: menos fricción, más producción y trazabilidad.",
     resourcesMetric1: "productividad",
     resourcesMetric2: "tareas repetitivas",
     resourcesMetric3: "asistencia",
-
+    hotspotAbout: "Sobre nosotros",
+    hotspotSolutions: "Soluciones",
+    hotspotResources: "Recursos",
+    hotspotTechnology: "Tecnología",
   },
 
   en: {
@@ -156,7 +159,7 @@ export const translations = {
     heroTitle: "Making buildings work beyond BIM",
     heroSubtitle:
       "Building Information Modeling (BIM) focuses on the design and construction of a building. A digital twin represents how people interact with built environments.",
-    heroCta: "Explore our tech",
+    
 
     servicesTitle: 'Our <span class="highlight">Services</span>',
     servicesSubtitle:
@@ -275,13 +278,16 @@ export const translations = {
 
     futurePhysicalWorldTitle: "Future<br />Physical World",
     futureWorldFuture: "FUTURE",
-        // ✅ RESOURCES PANEL
+    // ✅ RESOURCES PANEL
     resourcesKicker: "Resources",
     resourcesCallout:
       "Built for AEC teams: less friction, more output, and better traceability.",
     resourcesMetric1: "productivity",
     resourcesMetric2: "repetitive tasks",
     resourcesMetric3: "assistance",
-
+    hotspotAbout: "About us",
+    hotspotSolutions: "Solutions",
+    hotspotResources: "Resources",
+    hotspotTechnology: "Technology",
   },
 };

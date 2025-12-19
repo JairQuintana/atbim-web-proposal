@@ -5,6 +5,9 @@ export function setLanguage(lang) {
   const t = translations[lang] || translations.es;
   document.documentElement.lang = lang;
 
+  // ✅ persistimos idioma
+  localStorage.setItem("lang", lang);
+
   const setText = (id, value) => {
     const el = document.getElementById(id);
     if (el && typeof value === "string") el.textContent = value;
@@ -52,7 +55,8 @@ export function setLanguage(lang) {
 
   // ✅ optional mobile subtitle support
   const isMobile = window.matchMedia("(max-width: 768px)").matches;
-  if (isMobile && t.heroSubtitleMobile) setText("hero-subtitle", t.heroSubtitleMobile);
+  if (isMobile && t.heroSubtitleMobile)
+    setText("hero-subtitle", t.heroSubtitleMobile);
   else setText("hero-subtitle", t.heroSubtitle);
 
   const heroCta = document.getElementById("hero-cta");
@@ -78,7 +82,7 @@ export function setLanguage(lang) {
   setText("services-card3-text", t.servicesCard3Text);
   setHTML("services-footer", t.servicesFooter);
 
-  // COMMANDS (si lo usas en tu HTML real)
+  // COMMANDS
   setHTML("commands-title", t.commandsTitle);
   setText("commands-subtitle", t.commandsSubtitle);
   setText("commands-card1-badge", t.commandsCard1Badge);
@@ -162,6 +166,7 @@ export function setLanguage(lang) {
   // FOOTER
   setText("footer-text", t.footerText);
 
+  // ✅ evento global para que zoneUI refresque hotspots
   window.dispatchEvent(
     new CustomEvent("atbim:lang-changed", { detail: { lang } })
   );
@@ -181,5 +186,10 @@ export function initLanguageSelector() {
     });
   });
 
-  setLanguage("es");
+  // ✅ inicial: respeta el idioma guardado o ES por defecto
+  const saved = localStorage.getItem("lang") || "es";
+  setLanguage(saved);
+
+  // activa el botón correcto
+  langButtons.forEach((b) => b.classList.toggle("active", b.dataset.lang === saved));
 }
