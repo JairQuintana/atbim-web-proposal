@@ -5,16 +5,39 @@ export function setLanguage(lang) {
   const t = translations[lang] || translations.es;
   document.documentElement.lang = lang;
 
+  // ✅ persistimos idioma
+  localStorage.setItem("lang", lang);
+
   const setText = (id, value) => {
     const el = document.getElementById(id);
-    if (el) el.textContent = value;
+    if (el && typeof value === "string") el.textContent = value;
   };
 
+  const setHTML = (id, value) => {
+    const el = document.getElementById(id);
+    if (el && typeof value === "string") el.innerHTML = value;
+  };
+
+  const renderList = (listId, items) => {
+    const ul = document.getElementById(listId);
+    if (!ul) return;
+    ul.innerHTML = "";
+    if (!Array.isArray(items)) return;
+
+    items.forEach((text) => {
+      const li = document.createElement("li");
+      li.textContent = text;
+      ul.appendChild(li);
+    });
+  };
+
+  // NAV
   setText("nav-solutions", t.navSolutions);
   setText("nav-technology", t.navTechnology);
   setText("nav-resources", t.navResources);
   setText("nav-about", t.navAbout);
 
+  // Nav contact button (keeps arrow)
   const navContactBtn = document.getElementById("nav-contact-btn");
   if (navContactBtn) {
     const arrowSpan = navContactBtn.querySelector(".arrow");
@@ -27,8 +50,14 @@ export function setLanguage(lang) {
     }
   }
 
+  // HERO
   setText("hero-title", t.heroTitle);
-  setText("hero-subtitle", t.heroSubtitle);
+
+  // ✅ optional mobile subtitle support
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  if (isMobile && t.heroSubtitleMobile)
+    setText("hero-subtitle", t.heroSubtitleMobile);
+  else setText("hero-subtitle", t.heroSubtitle);
 
   const heroCta = document.getElementById("hero-cta");
   if (heroCta) {
@@ -42,11 +71,7 @@ export function setLanguage(lang) {
     }
   }
 
-  const setHTML = (id, value) => {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = value;
-  };
-
+  // SERVICES
   setHTML("services-title", t.servicesTitle);
   setText("services-subtitle", t.servicesSubtitle);
   setText("services-card1-badge", t.servicesCard1Badge);
@@ -57,6 +82,7 @@ export function setLanguage(lang) {
   setText("services-card3-text", t.servicesCard3Text);
   setHTML("services-footer", t.servicesFooter);
 
+  // COMMANDS
   setHTML("commands-title", t.commandsTitle);
   setText("commands-subtitle", t.commandsSubtitle);
   setText("commands-card1-badge", t.commandsCard1Badge);
@@ -67,12 +93,38 @@ export function setLanguage(lang) {
   setText("commands-card3-text", t.commandsCard3Text);
   setHTML("commands-footer", t.commandsFooter);
 
+  // TECHNOLOGY FLOW (Digital Twin)
+  setHTML("physical-world-title", t.physicalWorldTitle);
+  setText("physical-world-today", t.physicalWorldToday);
+
+  setText("label-data-capture", t.labelDataCapture);
+  setText("label-change", t.labelChange);
+
+  setText("digital-twin-title", t.digitalTwinTitle);
+  setText("digital-action-describe", t.digitalActionDescribe);
+  setText("digital-action-decide", t.digitalActionDecide);
+
+  setText("label-predict", t.labelPredict);
+  setText("label-prescribe", t.labelPrescribe);
+
+  setHTML("future-physical-world-title", t.futurePhysicalWorldTitle);
+  setText("future-world-future", t.futureWorldFuture);
+
+  // INTEGRATION (Resources title + content)
   setHTML("integration-title", t.integrationTitle);
   setText("integration-paragraph", t.integrationParagraph);
   setText("integration-li1", t.integrationLi1);
   setText("integration-li2", t.integrationLi2);
   setText("integration-li3", t.integrationLi3);
 
+  // ✅ RESOURCES EXTRA (kicker/callout/metrics)
+  setText("resources-kicker", t.resourcesKicker);
+  setText("resources-callout-text", t.resourcesCallout);
+  setText("resources-metric-1", t.resourcesMetric1);
+  setText("resources-metric-2", t.resourcesMetric2);
+  setText("resources-metric-3", t.resourcesMetric3);
+
+  // PROJECTS
   setText("projects-title", t.projectsTitle);
   setText("project1-overlay", t.project1Overlay);
   setText("project1-caption", t.project1Caption);
@@ -81,6 +133,21 @@ export function setLanguage(lang) {
   setText("project3-overlay", t.project3Overlay);
   setText("project3-caption", t.project3Caption);
 
+  // ABOUT
+  setText("about-kicker", t.aboutKicker);
+  setText("about-title", t.aboutTitle);
+  setText("about-subtitle", t.aboutSubtitle);
+
+  const aboutCta = document.getElementById("about-cta");
+  if (aboutCta) aboutCta.innerHTML = t.aboutCta;
+
+  setText("about-recognition-title", t.aboutRecognitionTitle);
+  setText("about-publications-title", t.aboutPublicationsTitle);
+
+  renderList("about-recognition-list", t.aboutRecognitionList);
+  renderList("about-publications-list", t.aboutPublicationsList);
+
+  // CONTACT
   setText("contact-main-title", t.contactMainTitle);
   setText("contact-main-text", t.contactMainText);
   setText("contact-form-title", t.contactFormTitle);
@@ -96,7 +163,13 @@ export function setLanguage(lang) {
   if (emailInput) emailInput.placeholder = t.contactEmailPlaceholder;
   if (messageInput) messageInput.placeholder = t.contactMessagePlaceholder;
 
+  // FOOTER
   setText("footer-text", t.footerText);
+
+  // ✅ evento global para que zoneUI refresque hotspots
+  window.dispatchEvent(
+    new CustomEvent("atbim:lang-changed", { detail: { lang } })
+  );
 }
 
 export function initLanguageSelector() {
@@ -113,5 +186,10 @@ export function initLanguageSelector() {
     });
   });
 
-  setLanguage("es");
+  // ✅ inicial: respeta el idioma guardado o ES por defecto
+  const saved = localStorage.getItem("lang") || "es";
+  setLanguage(saved);
+
+  // activa el botón correcto
+  langButtons.forEach((b) => b.classList.toggle("active", b.dataset.lang === saved));
 }

@@ -2,6 +2,7 @@
 import * as THREE from "three";
 import { createCameraApi } from "./cameraAnimations.js";
 import { getHotspotsForWidth } from "../hotspots.js";
+import { translations } from "../translations.js";
 
 const ZONE_TO_PANEL = {
   0: "about",
@@ -9,6 +10,39 @@ const ZONE_TO_PANEL = {
   2: "resources",
   3: "services",
 };
+
+function getCurrentLang() {
+  return localStorage.getItem("lang") || "es";
+}
+
+function getHotspotLabelByKey(key, lang) {
+  const t = translations[lang] || translations.es;
+
+  const map = {
+    about: t.hotspotAbout,
+    solutions: t.hotspotSolutions,
+    resources: t.hotspotResources,
+    technology: t.hotspotTechnology,
+  };
+
+  return map[key] || key;
+}
+
+function setHotspotButtonLabel(buttonEl, key, lang) {
+  if (!buttonEl) return;
+  const label = buttonEl.querySelector(".label");
+  if (!label) return;
+  label.textContent = getHotspotLabelByKey(key, lang);
+}
+
+export function refreshHotspotLabels(app, lang = getCurrentLang()) {
+  if (!app?.zoneButtons?.length) return;
+  app.zoneButtons.forEach((btn) => {
+    const key = btn?.dataset?.hotspotKey;
+    if (!key) return;
+    setHotspotButtonLabel(btn, key, lang);
+  });
+}
 
 export function mountZoneOverlay(app) {
   if (app.overlayEl) return;
@@ -47,6 +81,13 @@ export function mountZoneOverlay(app) {
       }
     },
   };
+
+  // ✅ escuchar cambios de idioma (lo dispara language.js)
+  window.addEventListener("atbim:lang-changed", (e) => {
+    const lang = e?.detail?.lang || getCurrentLang();
+    refreshHotspotLabels(app, lang);
+    refreshResetButtonLabel(app, lang);
+  });
 }
 
 export function setupZonesUI(app) {
@@ -56,8 +97,9 @@ export function setupZonesUI(app) {
   const geometry = new THREE.SphereGeometry(radius, 16, 16);
 
   const initialHotspots = getHotspotsForWidth(window.innerWidth);
+  app.currentHotspots = initialHotspots;
 
-  app.currentHotspots = getHotspotsForWidth(window.innerWidth);
+  const lang = getCurrentLang();
 
   initialHotspots.forEach((hotspot, index) => {
     const material = new THREE.MeshBasicMaterial({
@@ -80,7 +122,8 @@ export function setupZonesUI(app) {
     );
 
     marker.userData = {
-      id: hotspot.id,
+      // ✅ guardamos key estable (ya no hotspot.id)
+      hotspotKey: hotspot.key,
       zoneIndex: index,
       focusPoint: new THREE.Vector3(
         app.modelCenter.x + (hotspot.focusX || 0),
@@ -96,11 +139,16 @@ export function setupZonesUI(app) {
     const button = document.createElement("button");
     button.className = `atbim-zone-button zone-${index + 1}`;
 
+    // ✅ guardamos key en dataset para refrescar al cambiar idioma
+    button.dataset.hotspotKey = hotspot.key;
+
     const dot = document.createElement("span");
     dot.className = "dot";
     const label = document.createElement("span");
     label.className = "label";
-    label.textContent = hotspot.id;
+
+    // ✅ label traducido
+    label.textContent = getHotspotLabelByKey(hotspot.key, lang);
 
     button.appendChild(dot);
     button.appendChild(label);
@@ -131,13 +179,22 @@ export function setupZonesUI(app) {
   // reset button
   const resetButton = document.createElement("button");
   resetButton.className = "atbim-reset-button";
+  resetButton.dataset.i18nKey = "resetView";
+
+  // ✅ contenido traducible (solo el texto, el svg se mantiene)
   resetButton.innerHTML = `
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <polyline points="1 4 1 10 7 10"></polyline>
       <path d="M3.51 15a9 9 0 1 0 .49-5h-3"></path>
     </svg>
-    <span>Volver a vista inicial</span>
+    <span class="reset-label"></span>
   `;
+
+  app.overlayEl.appendChild(resetButton);
+  app.resetButton = resetButton;
+
+  // ✅ set label inicial del reset
+  refreshResetButtonLabel(app, lang);
 
   resetButton.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -147,13 +204,33 @@ export function setupZonesUI(app) {
     app.ui.showHero();
   });
 
-  app.overlayEl.appendChild(resetButton);
-  app.resetButton = resetButton;
-
   app.hotspotMode = getHotspotMode(window.innerWidth);
   app.ui.showZonesOnly();
   updateZoneButtonsPosition(app);
 }
+
+function refreshResetButtonLabel(app, lang = getCurrentLang()) {
+  const btn = app?.resetButton;
+  if (!btn) return;
+
+  const label = btn.querySelector(".reset-label");
+  if (!label) return;
+
+  const t = translations[lang] || translations.es;
+
+  // Fallbacks por idioma
+  const fallbackByLang = {
+    es: "Volver a vista inicial",
+    en: "Back to initial view",
+  };
+
+  // Prioridad:
+  // 1️⃣ translations.resetView (si existe)
+  // 2️⃣ fallback según idioma
+  label.textContent =
+    t.resetView || fallbackByLang[lang] || fallbackByLang.es;
+}
+  
 
 export function updateZoneButtonsPosition(app) {
   const container = document.getElementById("scene-container");
@@ -174,41 +251,6 @@ export function updateZoneButtonsPosition(app) {
   });
 }
 
-function applyHotspotsToScene(app, hotspots) {
-  // Reposiciona markers 3D + focusPoint (y si quieres, texto del botón)
-  hotspots.forEach((hotspot, index) => {
-    const mesh = app.zoneMeshes[index];
-    const btn = app.zoneButtons[index];
-    if (!mesh || !btn) return;
-
-    const buttonOffsetX = hotspot.buttonX || 0;
-    const buttonOffsetY =
-      hotspot.buttonY !== undefined ? hotspot.buttonY : 0.02;
-    const buttonOffsetZ = hotspot.buttonZ || 0;
-
-    mesh.position.set(
-      app.modelCenter.x + buttonOffsetX,
-      app.modelCenter.y + buttonOffsetY,
-      app.modelCenter.z + buttonOffsetZ
-    );
-
-    mesh.userData.id = hotspot.id;
-    mesh.userData.focusPoint.set(
-      app.modelCenter.x + (hotspot.focusX || 0),
-      app.modelCenter.y +
-        (hotspot.focusY !== undefined ? hotspot.focusY : 0.02),
-      app.modelCenter.z + (hotspot.focusZ || 0)
-    );
-
-    // opcional: actualiza el texto del botón si cambia
-    const label = btn.querySelector(".label");
-    if (label) label.textContent = hotspot.id;
-  });
-
-  // importante: tras cambiar posiciones 3D, recalcula 2D
-  updateZoneButtonsPosition(app);
-}
-
 function getHotspotMode(width) {
   if (width <= 768) return "lte768";
   if (width <= 1032) return "lte1032";
@@ -221,12 +263,9 @@ export function updateHotspotsForViewport(app) {
   const width = window.innerWidth;
 
   const nextHotspots = getHotspotsForWidth(width);
-  const nextMode = getHotspotMode ? getHotspotMode(width) : null;
+  const nextMode = getHotspotMode(width);
 
-  // Si quieres: solo recalcular si cambia el "modo" o el array de hotspots
-  // (lo típico es usar modo/breakpoint)
   const modeChanged = nextMode !== app.hotspotMode;
-
   if (!modeChanged) return;
 
   app.hotspotMode = nextMode;
@@ -234,6 +273,7 @@ export function updateHotspotsForViewport(app) {
 
   nextHotspots.forEach((hotspot, index) => {
     const marker = app.zoneMeshes[index];
+    const btn = app.zoneButtons[index];
     if (!marker) return;
 
     const buttonOffsetX = hotspot.buttonX || 0;
@@ -248,14 +288,25 @@ export function updateHotspotsForViewport(app) {
       app.modelCenter.z + buttonOffsetZ
     );
 
-    // actualizar focusPoint (MUY IMPORTANTE si lo usas para zoom)
+    // actualizar focusPoint
     marker.userData.focusPoint.set(
       app.modelCenter.x + (hotspot.focusX || 0),
       app.modelCenter.y +
         (hotspot.focusY !== undefined ? hotspot.focusY : 0.02),
       app.modelCenter.z + (hotspot.focusZ || 0)
     );
+
+    // ✅ actualizar key estable en marker + botón
+    marker.userData.hotspotKey = hotspot.key;
+    if (btn) {
+      btn.dataset.hotspotKey = hotspot.key;
+      // mantener label traducido en resize
+      setHotspotButtonLabel(btn, hotspot.key, getCurrentLang());
+    }
   });
+
+  // tras cambiar posiciones 3D, recalcula 2D
+  updateZoneButtonsPosition(app);
 }
 
 export function updateModelCenter(app) {
