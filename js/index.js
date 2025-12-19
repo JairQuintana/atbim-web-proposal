@@ -1,11 +1,16 @@
-// /js/index.js
 import { camera, controls, renderer, scene } from "./three.js";
 import { MAIN_POSITION } from "./constants.js";
 
 import { createAppState } from "./app/state.js";
-import { loadOfficeModel } from "./app/modelLoader.js";
+import { loadOfficeModel, updateModelScale } from "./app/modelLoader.js";
 import { injectZoneStyles } from "./app/zoneStyles.js";
-import { mountZoneOverlay, setupZonesUI, updateZoneButtonsPosition } from "./app/zoneUI.js";
+import {
+  mountZoneOverlay,
+  setupZonesUI,
+  updateHotspotsForViewport,
+  updateModelCenter,
+  updateZoneButtonsPosition,
+} from "./app/zoneUI.js";
 
 import { createPanelSystem } from "./app/panelSystem.js";
 import { initLanguageSelector } from "./app/language.js";
@@ -58,6 +63,9 @@ window.addEventListener("resize", () => {
   app.camera.aspect = window.innerWidth / window.innerHeight;
   app.camera.updateProjectionMatrix();
   app.renderer.setSize(window.innerWidth, window.innerHeight);
+  updateModelScale(app);
+  updateModelCenter(app);
+  updateHotspotsForViewport(app);
   updateZoneButtonsPosition(app);
 });
 
