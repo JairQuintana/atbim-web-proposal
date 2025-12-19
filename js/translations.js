@@ -8,7 +8,7 @@ export const translations = {
     navAbout: "Sobre nosotros",
     navContactBtn: "Contáctanos",
 
-    heroTitle: "Lograr que los edificios funcionen más allá de BIM",
+    heroTitle: "Logramos que los edificios funcionen más allá de BIM",
     heroSubtitle:
       "El Modelado de Información de Construcción se centra en el diseño y la construcción de un edificio. Un gemelo digital representa cómo las personas interactúan con los entornos construidos.",
 
@@ -156,7 +156,7 @@ export const translations = {
     navAbout: "About us",
     navContactBtn: "Contact us",
 
-    heroTitle: "Making buildings work beyond BIM",
+    heroTitle: "We make buildings work beyond BIM",
     heroSubtitle:
       "Building Information Modeling (BIM) focuses on the design and construction of a building. A digital twin represents how people interact with built environments.",
     
