@@ -540,222 +540,253 @@
 
     <!-- RESOURCES -->
     <section class="atbim-panel" data-panel="resources" id="resources">
-      <div class="atbim-panel-inner bim-with-ia-content">
-        <div class="bim-with-ia-left">
-          <h2 id="integration-title">
-            <span>I</span><span>n</span><span>t</span><span>e</span
-            ><span>g</span><span>r</span><span>a</span><span>c</span
-            ><span>i</span><span>ó</span><span>n</span>
-            &nbsp;
-            <span>d</span><span>e</span>
-            &nbsp;
-            <span>I</span><span>n</span><span>t</span><span>e</span
-            ><span>l</span><span>i</span><span>g</span><span>e</span
-            ><span>n</span><span>c</span><span>i</span><span>a</span>
-            &nbsp;
-            <span>A</span><span>r</span><span>t</span><span>i</span
-            ><span>f</span><span>i</span><span>c</span><span>i</span
-            ><span>a</span>
-            &nbsp;
-            <span>e</span><span>n</span>
-            &nbsp;
-            <span>R</span><span>e</span><span>v</span><span>i</span
-            ><span>t</span>
-          </h2>
+      <div class="atbim-panel-inner">
+        <div class="resources-shell">
+          <!-- LEFT ONLY -->
+          <div class="resources-left">
+            <div class="resources-kicker" id="resources-kicker">Resources</div>
 
-          <p id="integration-paragraph">
-            Aprovechamos la potencia de la IA para optimizar procesos dentro de
-            Revit, implementando soluciones inteligentes a través de plugins
-            personalizados. Esto permite automatizar tareas, mejorar la
-            precisión del modelado y potenciar la productividad de tu equipo.
-          </p>
+            <h2 id="integration-title" class="resources-title">
+              <!-- Se rellena por translations (integrationTitle) -->
+            </h2>
 
-          <ul>
-            <li id="integration-li1">
-              Detección automática de conflictos y errores en modelos BIM.
-            </li>
-            <li id="integration-li2">
-              Generación inteligente de planos y documentación.
-            </li>
-            <li id="integration-li3">
-              Asistentes de diseño basados en IA para optimización de espacios.
-            </li>
-          </ul>
-        </div>
+            <p id="integration-paragraph" class="resources-paragraph">
+              <!-- Se rellena por translations (integrationParagraph) -->
+            </p>
 
-        <div class="bim-with-ia-right">
-          <div class="illustration">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-brain-circuit-icon lucide-brain-circuit"
-            >
-              <path
-                d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"
-              />
-              <path d="M9 13a4.5 4.5 0 0 0 3-4" />
-              <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" />
-              <path d="M3.477 10.896a4 4 0 0 1 .585-.396" />
-              <path d="M6 18a4 4 0 0 1-1.967-.516" />
-              <path d="M12 13h4" />
-              <path d="M12 18h6a2 2 0 0 1 2 2v1" />
-              <path d="M12 8h8" />
-              <path d="M16 8V5a2 2 0 0 1 2-2" />
-              <circle cx="16" cy="13" r=".5" />
-              <circle cx="18" cy="3" r=".5" />
-              <circle cx="20" cy="21" r=".5" />
-              <circle cx="20" cy="8" r=".5" />
-            </svg>
+            <div class="resources-chips">
+              <span id="rchip-rag" class="rchip">RAG</span>
+              <span id="rchip-agents" class="rchip">Agents</span>
+              <span id="rchip-automation" class="rchip">Automation</span>
+              <span id="rchip-revit-first" class="rchip rchip-accent"
+                >Revit-first</span
+              >
+            </div>
+
+            <ul class="resources-list">
+              <li>
+                <span class="rcheck" aria-hidden="true"></span>
+                <span id="integration-li1"></span>
+              </li>
+              <li>
+                <span class="rcheck" aria-hidden="true"></span>
+                <span id="integration-li2"></span>
+              </li>
+              <li>
+                <span class="rcheck" aria-hidden="true"></span>
+                <span id="integration-li3"></span>
+              </li>
+            </ul>
+
+            <div class="resources-callout">
+              <div class="resources-callout-dot"></div>
+              <div
+                class="resources-callout-text"
+                id="resources-callout-text"
+              ></div>
+            </div>
+          </div>
+
+          <!-- BOTTOM BAR ONLY -->
+          <div class="resources-metrics resources-metrics-bar">
+            <div class="metric">
+              <div class="metric-num">+40%</div>
+              <div class="metric-label" id="resources-metric-1">
+                productivity
+              </div>
+            </div>
+            <div class="metric">
+              <div class="metric-num">-60%</div>
+              <div class="metric-label" id="resources-metric-2">
+                repetitive tasks
+              </div>
+            </div>
+            <div class="metric">
+              <div class="metric-num">24/7</div>
+              <div class="metric-label" id="resources-metric-3">assistance</div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ABOUT (NUEVO diseño tipo "equipo") -->
-    <section class="atbim-panel" data-panel="about" id="about">
-      <div class="atbim-panel-inner">
-        <section class="about-hero">
-          <div class="about-banner">
-            <div class="about-banner-overlay"></div>
-            <div class="about-banner-inner">
-              <div class="about-brand">
-                <span class="about-kicker" id="about-kicker">Equipo</span>
-                <h2 class="about-title" id="about-title">
-                  Quiénes somos | Equipo ATBIM
-                </h2>
-                <p class="about-subtitle" id="about-subtitle">
-                  Realizamos consultoría BIM con altas exigencias. Trabajamos en
-                  equipo con el objetivo de optimizar y automatizar los procesos
-                  de construcción.
-                </p>
+   <!-- =========================
+     ABOUT / SOBRE NOSOTROS
+========================= -->
+<section class="atbim-panel" data-panel="about" id="about">
+  <div class="atbim-panel-inner">
+    <section class="about-hero">
+      <div class="about-banner">
+        <div class="about-banner-overlay"></div>
 
-                <!-- ✅ CTA: cierra about y abre contacto -->
-                <a
-                  class="about-cta"
-                  href="#contact"
-                  data-open-panel="contact"
-                  id="about-cta"
-                >
-                  Forma parte de nuestro equipo <span class="arrow">→</span>
-                </a>
-              </div>
-            </div>
+        <div class="about-banner-inner">
+          <div class="about-brand">
+            <span class="about-kicker" id="about-kicker">Equipo</span>
+
+            <h2 class="about-title" id="about-title">
+              Quiénes somos | Equipo ATBIM
+            </h2>
+
+            <p class="about-subtitle" id="about-subtitle">
+              Realizamos consultoría BIM con altas exigencias. Trabajamos en
+              equipo con el objetivo de optimizar y automatizar los procesos de
+              construcción.
+            </p>
+
+            <!-- ✅ CTA -->
+            <a class="about-cta" href="#contact" id="about-cta">
+              Forma parte de nuestro equipo <span class="arrow">→</span>
+            </a>
           </div>
+        </div>
+      </div>
 
-          <div class="about-grid">
-            <div class="about-card">
-              <h3 class="about-card-title">Reconocimientos y trayectoria</h3>
-              <ul class="about-list">
-                <li>Fundadores del grupo BIM Aragón - 2015</li>
-                <li>Miembros Building Smart Spanish Chapter - 2017</li>
-                <li>ADN (Autodesk Development Network) - 2017</li>
-                <li>Finalistas concurso IDEA (AREX Aragón Exterior) - 2018</li>
-                <li>Team 4.0 Digital Hackathon (Built Europe) - 2018</li>
-                <li>Dirección del Máster BIM USJ - Desde 2018</li>
-              </ul>
-            </div>
+      <div class="about-grid">
+        <!-- LEFT CARD -->
+        <div class="about-card">
+          <h3 class="about-card-title" id="about-recognition-title">
+            Reconocimientos y trayectoria
+          </h3>
 
-            <div class="about-card">
-              <h3 class="about-card-title">Publicaciones y ponencias</h3>
-              <ul class="about-list">
-                <li>Ponentes en Jornada BIM CIVIL UEM - 2016</li>
-                <li>Publicación Revista Cimbra - 2017</li>
-                <li>Publicación libro Abstracts Contart - 2018</li>
-                <li>Revista Building Smart Spanish Chapter - 2018</li>
-                <li>Ponentes congreso XXXVI Zaragoza</li>
-                <li>Ponentes BIMTour 2018-2019</li>
-              </ul>
-            </div>
-          </div>
-        </section>
+          <ul class="about-list" id="about-recognition-list">
+            <li>Fundadores del grupo BIM Aragón - 2015</li>
+            <li>Miembros del la Building Smart Spanish Chapter - 2017</li>
+            <li>ADN (Autodesk Development Network) - 2017</li>
+            <li>
+              Finalistas concurso IDEA en la modalidad de "IDEA Empresa" 2018 -
+              AREX-Aragón Exterior y la Fundación Rafael del Pino y en
+              colaboración con el CEEI Aragón - 2018
+            </li>
+            <li>
+              1º Team 4.0 Digital Hackathon about Generative Design in Built
+              Europe in Edinburgh - 2018
+            </li>
+            <li>Dirección del Máster BIM USJ - Desde 2018</li>
+            <li>
+              Finalistas concurso IDEA en la modalidad de "IDEA Empresa" - 2019
+            </li>
+            <li>Finalistas XIII Premio Joven Empresario de Aragón - 2020</li>
+            <li>Finalistas Game Dev Lab - 2020</li>
+            <li>
+              Co-Directores Cátedra "Lugares digitales" de Unizar - 2022
+            </li>
+            <li>Socios del clúster de Tecnara - Desde 2022</li>
+          </ul>
+        </div>
+
+        <!-- RIGHT CARD -->
+        <div class="about-card">
+          <h3 class="about-card-title" id="about-publications-title">
+            Publicaciones y ponencias
+          </h3>
+
+          <ul class="about-list" id="about-publications-list">
+            <li>Ponentes en Jornada BIM CIVIL UEM - 2016</li>
+            <li>
+              Publicación Revista Cimbra - Cómo gestionar la metodología BIM -
+              2017
+            </li>
+            <li>Publicación libro Abstracts Contart - 2018</li>
+            <li>Publicación Revista Building Smart Spanish Chapter - 2018</li>
+            <li>
+              Ponentes congreso XXXVI Congreso Nacional-Seminario de Ingeniería
+              Hospitalaria de Zaragoza
+            </li>
+            <li>Ponentes BIMTour 2018-2019</li>
+            <li>
+              Ponentes Contart - Convención Internacional de la Arquitectura
+              Técnica - 2018
+            </li>
+            <li>Publicación libro Anales de la edificación 2020</li>
+            <li>
+              Publicación libro Abstracts Contart 2020 - La magia de la
+              iteración
+            </li>
+            <li>Ponentes EUBIM 2024</li>
+            <li>Ponentes I Congreso Nacional del Hormigón - 2024</li>
+            <li>Ponentes congreso Rebuild 2017, 2018, 2019, 2020, 2023</li>
+          </ul>
+        </div>
       </div>
     </section>
+  </div>
+</section>
 
     <!-- CONTACTO (panel overlay, sin scroll página) -->
-    <section class="atbim-panel" data-panel="contact" id="contact">
-      <div class="atbim-panel-inner">
-        <section class="contact-section">
-          <div class="contact-container">
-            <div class="contact-info">
-              <div class="contact-info-card">
-                <div>
-                  <h2 id="contact-main-title">Hablemos</h2>
-                  <p id="contact-main-text">
-                    Si tienes dudas o quieres más información sobre nuestros
-                    servicios, no dudes en enviarnos un mensaje. ¡Estamos para
-                    ayudarte!
-                  </p>
-                </div>
-              </div>
-
-              <div class="contact-info-card">
-                <span><!-- svg phone --></span>
-                <a href="tel:+34660514455">+34 660 51 44 55</a>
-              </div>
-
-              <div class="contact-info-card">
-                <span><!-- svg mail --></span>
-                <a href="mailto:info@atbim.es">info@atbim.es</a>
-              </div>
-
-              <div class="contact-info-card">
-                <span><!-- svg map --></span>
-                Avenida Ranillas 3C, 1º, Oficina B, 50018, Zaragoza
+    <section data-panel="contact" id="contact">
+      <section class="contact-section">
+        <div class="contact-container">
+          <div class="contact-info">
+            <div class="contact-info-card">
+              <div>
+                <h2 id="contact-main-title">Hablemos</h2>
+                <p id="contact-main-text">
+                  Si tienes dudas o quieres más información sobre nuestros
+                  servicios, no dudes en enviarnos un mensaje. ¡Estamos para
+                  ayudarte!
+                </p>
               </div>
             </div>
 
-            <div class="contact-form">
-              <h2 id="contact-form-title">Contáctanos</h2>
-              <form action="/send-message" method="POST">
-                <div>
-                  <label for="name" id="contact-name-label">Nombre:</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Tu nombre"
-                    required
-                  />
-                </div>
+            <div class="contact-info-card">
+              <span><!-- svg phone --></span>
+              <a href="tel:+34660514455">+34 660 51 44 55</a>
+            </div>
 
-                <div>
-                  <label for="email" id="contact-email-label"
-                    >Correo electrónico:</label
-                  >
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Tu correo"
-                    required
-                  />
-                </div>
+            <div class="contact-info-card">
+              <span><!-- svg mail --></span>
+              <a href="mailto:info@atbim.es">info@atbim.es</a>
+            </div>
 
-                <div>
-                  <label for="message" id="contact-message-label"
-                    >Mensaje:</label
-                  >
-                  <textarea
-                    id="message"
-                    name="message"
-                    placeholder="Escribe tu mensaje aquí..."
-                    required
-                  ></textarea>
-                </div>
-
-                <button type="submit" id="contact-submit-btn">Enviar</button>
-              </form>
+            <div class="contact-info-card">
+              <span><!-- svg map --></span>
+              Avenida Ranillas 3C, 1º, Oficina B, 50018, Zaragoza
             </div>
           </div>
-        </section>
-      </div>
+
+          <div class="contact-form">
+            <h2 id="contact-form-title">Contáctanos</h2>
+            <form action="/send-message" method="POST">
+              <div>
+                <label for="name" id="contact-name-label">Nombre:</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Tu nombre"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="email" id="contact-email-label"
+                  >Correo electrónico:</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Tu correo"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="message" id="contact-message-label">Mensaje:</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Escribe tu mensaje aquí..."
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" id="contact-submit-btn">Enviar</button>
+            </form>
+          </div>
+        </div>
+      </section>
     </section>
 
     <footer class="footer">
@@ -828,6 +859,3 @@
     </script>
   </body>
 </html>
-
-//button de volver tiene que estar en idoma, nuevo apartado en ingles tambien,
-buttons de hotpots en ingles tammbien y apartado de solucuiones

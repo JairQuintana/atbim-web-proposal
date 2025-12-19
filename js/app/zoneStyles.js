@@ -48,8 +48,8 @@ export function injectZoneStyles() {
   .zone-1::after {
     content: "";
     position: absolute;
-    height: 20dvh;
-    top: -20dvh;
+    height: 15dvh;
+    top: -15dvh;
     left: 50%;
     transform: translateX(-50%);
     width: 1px;
@@ -64,7 +64,7 @@ export function injectZoneStyles() {
     position: absolute;
     width: 20dvw;
     height: 1px;
-    top: -20dvh;
+    top: -15dvh;
     right: 50%;
     background: linear-gradient(90deg, #6a5af9, #f093fb);
     z-index: 999999;
@@ -72,8 +72,8 @@ export function injectZoneStyles() {
   .zone-3::after {
     content: "";
     position: absolute;
-    height: 30dvh;
-    top: -30dvh;
+    height: 10dvh;
+    top: -10dvh;
     left: 50%;
     transform: translateX(-50%);
     width: 1px;
@@ -90,7 +90,7 @@ export function injectZoneStyles() {
     position: absolute;
     width: 20dvw;
     height: 1px;
-    top: -30dvh;
+    top: -10dvh;
     right: 50%;
     background: linear-gradient(90deg, #6a5af9, #f093fb);
     z-index: 999999;
@@ -141,7 +141,7 @@ export function injectZoneStyles() {
     "Helvetica Neue", Arial, sans-serif;
     content: "Tecnnología";
     font-size: 0.95rem;
-white-space: nowrap;
+    white-space: nowrap;
     position: absolute;
     width: 20dvw;
     height: 1px;
