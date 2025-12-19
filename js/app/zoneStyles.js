@@ -27,7 +27,6 @@ export function injectZoneStyles() {
   text-transform: uppercase;
   font-weight: 600;
   cursor: pointer;
-  overflow: hidden;
   box-shadow: 0 0 0 1px rgba(129,140,248,0.25), 0 10px 28px rgba(15,23,42,0.9);
   backdrop-filter: blur(10px);
   display: inline-flex;
@@ -37,16 +36,122 @@ export function injectZoneStyles() {
   transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
 }
 
-.atbim-zone-button::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background: conic-gradient(from 120deg, rgba(129,140,248,0.0), rgba(129,140,248,0.7), rgba(236,72,153,0.7), rgba(129,140,248,0.0));
-  opacity: 0;
-  animation: atbim-glow 2.4s linear infinite;
-  z-index: -1;
+
+
+@media (max-width: 768px) {
+.atbim-zone-button{
+  padding: 0.5rem 0.5rem;
+  }
+  .atbim-zone-button .label {
+    display: none;
+  }
+  .zone-1::after {
+    content: "";
+    position: absolute;
+    height: 20dvh;
+    top: -20dvh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background: linear-gradient(90deg, #6a5af9, #f093fb);
+    z-index: 999999;
+  }
+  .zone-1::before {
+    line-height: 0;
+    content: "Sobre Nosotros";
+    font-size: 0.95rem;
+    white-space: nowrap;
+    position: absolute;
+    width: 20dvw;
+    height: 1px;
+    top: -20dvh;
+    right: 50%;
+    background: linear-gradient(90deg, #6a5af9, #f093fb);
+    z-index: 999999;
+  }
+  .zone-3::after {
+    content: "";
+    position: absolute;
+    height: 30dvh;
+    top: -30dvh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background: linear-gradient(90deg, #6a5af9, #f093fb);
+    z-index: 999999;
+  }
+
+  .zone-3::before {
+    font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+    content: "Recursos";
+    font-size: 0.95rem;
+    white-space: nowrap;
+    position: absolute;
+    width: 20dvw;
+    height: 1px;
+    top: -30dvh;
+    right: 50%;
+    background: linear-gradient(90deg, #6a5af9, #f093fb);
+    z-index: 999999;
+  }
+  .zone-2::after {
+    content: "";
+    position: absolute;
+    height: 30dvh;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background: linear-gradient(90deg, #6a5af9, #f093fb);
+    z-index: 999999;
+  }
+  .zone-2::before {
+    line-height: 3;
+    font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+    content: "Soluciones";
+    position: absolute;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    width: 20dvw;
+    height: 1px;
+    top: calc(100% + 30dvh);
+    left: 50%;
+    background: linear-gradient(90deg, #6a5af9, #f093fb);
+    z-index: 999999;
+  }
+
+  .zone-4::after {
+    content: "";
+    position: absolute;
+    height: 20dvh;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background: linear-gradient(90deg, #6a5af9, #f093fb);
+    z-index: 999999;
+  }
+
+
+  .zone-4::before {
+    line-height: 3;
+    font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+    content: "Tecnnología";
+    font-size: 0.95rem;
+white-space: nowrap;
+    position: absolute;
+    width: 20dvw;
+    height: 1px;
+    top: calc(100% + 20dvh);
+    left: 50%;
+    background: linear-gradient(90deg, #6a5af9, #f093fb);
+    z-index: 999999;
+  }
 }
+
 
 .atbim-zone-button span.label { position: relative; z-index: 1; }
 .atbim-zone-button span.dot {

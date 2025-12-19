@@ -9,7 +9,8 @@ export const translations = {
     navContactBtn: "Contáctanos",
 
     heroTitle: "Lograr que los edificios funcionen más allá de BIM",
-    heroSubtitle:"El Modelado de Información de Construcción se centra en el diseño y la construcción de un edificio. Un gemelo digital representa cómo las personas interactúan con los entornos construidos.",
+    heroSubtitle:
+      "El Modelado de Información de Construcción se centra en el diseño y la construcción de un edificio. Un gemelo digital representa cómo las personas interactúan con los entornos construidos.",
     heroCta: "Explora nuestra tecnología",
 
     servicesTitle: 'Nuestros <span class="highlight">Servicios</span>',
@@ -33,16 +34,14 @@ export const translations = {
     commandsCard1Badge: "Comando 1",
     commandsCard1Text: '"Ajusta todos los muros al nivel 2."',
     commandsCard2Badge: "Comando 2",
-    commandsCard2Text:
-      '"Genera una vista 3D con los elementos estructurales."',
+    commandsCard2Text: '"Genera una vista 3D con los elementos estructurales."',
     commandsCard3Badge: "Comando 3",
-    commandsCard3Text:
-      '"Exporta el modelo con los materiales simplificados."',
+    commandsCard3Text: '"Exporta el modelo con los materiales simplificados."',
     commandsFooter:
       "Detrás de cada comando, un <strong>agente inteligente</strong> traduce tus palabras en acciones reales dentro de Revit.",
 
     integrationTitle:
-      '<span>I</span><span>n</span><span>t</span><span>e</span><span>g</span><span>r</span><span>a</span><span>c</span><span>i</span><span>ó</span><span>n</span>&nbsp;<span>d</span><span>e</span>&nbsp;<span>I</span><span>n</span><span>t</span><span>e</span><span>l</span><span>i</span><span>g</span><span>e</span><span>n</span><span>c</span><span>i</span><span>a</span>&nbsp;<span>A</span><span>r</span><span>t</span><span>i</span><span>f</span><span>i</span><span>c</span><span>i</span><span>a</span>&nbsp;<span>e</span><span>n</span>&nbsp;<span>R</span><span>e</span><span>v</span><span>i</span><span>t</span>',
+      "<span>I</span><span>n</span><span>t</span><span>e</span><span>g</span><span>r</span><span>a</span><span>c</span><span>i</span><span>ó</span><span>n</span>&nbsp;<span>d</span><span>e</span>&nbsp;<span>I</span><span>n</span><span>t</span><span>e</span><span>l</span><span>i</span><span>g</span><span>e</span><span>n</span><span>c</span><span>i</span><span>a</span>&nbsp;<span>A</span><span>r</span><span>t</span><span>i</span><span>f</span><span>i</span><span>c</span><span>i</span><span>a</span>&nbsp;<span>e</span><span>n</span>&nbsp;<span>R</span><span>e</span><span>v</span><span>i</span><span>t</span>",
     integrationParagraph:
       "Aprovechamos la potencia de la IA para optimizar procesos dentro de Revit, implementando soluciones inteligentes a través de plugins personalizados. Esto permite automatizar tareas, mejorar la precisión del modelado y potenciar la productividad de tu equipo.",
     integrationLi1:
@@ -74,7 +73,7 @@ export const translations = {
     contactMessagePlaceholder: "Escribe tu mensaje aquí...",
     contactSubmitBtn: "Enviar",
 
-    footerText: "© ATBIM - Building Engineering."
+    footerText: "© ATBIM - Building Engineering.",
   },
 
   en: {
@@ -110,34 +109,29 @@ export const translations = {
     commandsCard1Badge: "Command 1",
     commandsCard1Text: '"Adjust all walls to Level 2."',
     commandsCard2Badge: "Command 2",
-    commandsCard2Text:
-      '"Create a 3D view with structural elements only."',
+    commandsCard2Text: '"Create a 3D view with structural elements only."',
     commandsCard3Badge: "Command 3",
-    commandsCard3Text:
-      '"Export the model with simplified materials."',
+    commandsCard3Text: '"Export the model with simplified materials."',
     commandsFooter:
       "Behind every command, an <strong>intelligent agent</strong> translates your words into real actions inside Revit.",
 
     // 🔹 AÑADIDO: traducciones que faltaban en EN
     integrationTitle:
-      '<span>I</span><span>n</span><span>t</span><span>e</span><span>g</span><span>r</span><span>a</span><span>t</span><span>i</span><span>o</span><span>n</span>&nbsp;<span>o</span><span>f</span>&nbsp;<span>A</span><span>r</span><span>t</span><span>i</span><span>f</span><span>i</span><span>c</span><span>i</span><span>a</span><span>l</span>&nbsp;<span>I</span><span>n</span><span>t</span><span>e</span><span>l</span><span>l</span><span>i</span><span>g</span><span>e</span><span>n</span><span>c</span><span>e</span>&nbsp;<span>i</span><span>n</span>&nbsp;<span>R</span><span>e</span><span>v</span><span>i</span><span>t</span>',
+      "<span>I</span><span>n</span><span>t</span><span>e</span><span>g</span><span>r</span><span>a</span><span>t</span><span>i</span><span>o</span><span>n</span>&nbsp;<span>o</span><span>f</span>&nbsp;<span>A</span><span>r</span><span>t</span><span>i</span><span>f</span><span>i</span><span>c</span><span>i</span><span>a</span><span>l</span>&nbsp;<span>I</span><span>n</span><span>t</span><span>e</span><span>l</span><span>l</span><span>i</span><span>g</span><span>e</span><span>n</span><span>c</span><span>e</span>&nbsp;<span>i</span><span>n</span>&nbsp;<span>R</span><span>e</span><span>v</span><span>i</span><span>t</span>",
     integrationParagraph:
       "We leverage the power of AI to optimize processes inside Revit, implementing smart solutions through custom plugins. This allows you to automate tasks, improve modeling accuracy and boost your team's productivity.",
-    integrationLi1:
-      "Automatic detection of clashes and errors in BIM models.",
+    integrationLi1: "Automatic detection of clashes and errors in BIM models.",
     integrationLi2: "Intelligent generation of drawings and documentation.",
     integrationLi3:
       "AI-powered design assistants to optimize space and layout.",
 
     projectsTitle: "Our projects",
-    project1Overlay:
-      "Advanced financial analysis with investment projections.",
+    project1Overlay: "Advanced financial analysis with investment projections.",
     project1Caption: "Financial analysis",
     project2Overlay:
       "Development of sustainable housing with modular architecture.",
     project2Caption: "Jit Housing",
-    project3Overlay:
-      "Example of digital management applied to urban planning.",
+    project3Overlay: "Example of digital management applied to urban planning.",
     project3Caption: "Sample project",
 
     contactMainTitle: "Let’s talk",
@@ -152,6 +146,6 @@ export const translations = {
     contactMessagePlaceholder: "Write your message here...",
     contactSubmitBtn: "Send",
 
-    footerText: "© ATBIM - Building Engineering."
-  }
+    footerText: "© ATBIM - Building Engineering.",
+  },
 };

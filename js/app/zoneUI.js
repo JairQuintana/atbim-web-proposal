@@ -1,7 +1,7 @@
 // /js/app/zoneUI.js
 import * as THREE from "three";
-import { HOTSPOTS } from "../hotspots.js";
 import { createCameraApi } from "./cameraAnimations.js";
+import { getHotspotsForWidth } from "../hotspots.js";
 
 const ZONE_TO_PANEL = {
   0: "about",
@@ -55,7 +55,11 @@ export function setupZonesUI(app) {
   const radius = 0.03;
   const geometry = new THREE.SphereGeometry(radius, 16, 16);
 
-  HOTSPOTS.forEach((hotspot, index) => {
+  const initialHotspots = getHotspotsForWidth(window.innerWidth);
+
+  app.currentHotspots = getHotspotsForWidth(window.innerWidth);
+
+  initialHotspots.forEach((hotspot, index) => {
     const material = new THREE.MeshBasicMaterial({
       color: 0x00ff00,
       transparent: true,
@@ -65,7 +69,8 @@ export function setupZonesUI(app) {
     const marker = new THREE.Mesh(geometry, material);
 
     const buttonOffsetX = hotspot.buttonX || 0;
-    const buttonOffsetY = hotspot.buttonY !== undefined ? hotspot.buttonY : 0.02;
+    const buttonOffsetY =
+      hotspot.buttonY !== undefined ? hotspot.buttonY : 0.02;
     const buttonOffsetZ = hotspot.buttonZ || 0;
 
     marker.position.set(
@@ -79,7 +84,8 @@ export function setupZonesUI(app) {
       zoneIndex: index,
       focusPoint: new THREE.Vector3(
         app.modelCenter.x + (hotspot.focusX || 0),
-        app.modelCenter.y + (hotspot.focusY !== undefined ? hotspot.focusY : 0.02),
+        app.modelCenter.y +
+          (hotspot.focusY !== undefined ? hotspot.focusY : 0.02),
         app.modelCenter.z + (hotspot.focusZ || 0)
       ),
     };
@@ -105,7 +111,10 @@ export function setupZonesUI(app) {
       app.panels?.closeActivePanel();
 
       button.classList.add("atbim-zone-button--active");
-      setTimeout(() => button.classList.remove("atbim-zone-button--active"), 250);
+      setTimeout(
+        () => button.classList.remove("atbim-zone-button--active"),
+        250
+      );
 
       app.cameraApi.zoomToZone(app, marker, index);
       app.ui.showResetOnly();
@@ -141,6 +150,7 @@ export function setupZonesUI(app) {
   app.overlayEl.appendChild(resetButton);
   app.resetButton = resetButton;
 
+  app.hotspotMode = getHotspotMode(window.innerWidth);
   app.ui.showZonesOnly();
   updateZoneButtonsPosition(app);
 }
@@ -162,4 +172,94 @@ export function updateZoneButtonsPosition(app) {
     btn.style.left = `${x}px`;
     btn.style.top = `${y}px`;
   });
+}
+
+function applyHotspotsToScene(app, hotspots) {
+  // Reposiciona markers 3D + focusPoint (y si quieres, texto del botón)
+  hotspots.forEach((hotspot, index) => {
+    const mesh = app.zoneMeshes[index];
+    const btn = app.zoneButtons[index];
+    if (!mesh || !btn) return;
+
+    const buttonOffsetX = hotspot.buttonX || 0;
+    const buttonOffsetY =
+      hotspot.buttonY !== undefined ? hotspot.buttonY : 0.02;
+    const buttonOffsetZ = hotspot.buttonZ || 0;
+
+    mesh.position.set(
+      app.modelCenter.x + buttonOffsetX,
+      app.modelCenter.y + buttonOffsetY,
+      app.modelCenter.z + buttonOffsetZ
+    );
+
+    mesh.userData.id = hotspot.id;
+    mesh.userData.focusPoint.set(
+      app.modelCenter.x + (hotspot.focusX || 0),
+      app.modelCenter.y +
+        (hotspot.focusY !== undefined ? hotspot.focusY : 0.02),
+      app.modelCenter.z + (hotspot.focusZ || 0)
+    );
+
+    // opcional: actualiza el texto del botón si cambia
+    const label = btn.querySelector(".label");
+    if (label) label.textContent = hotspot.id;
+  });
+
+  // importante: tras cambiar posiciones 3D, recalcula 2D
+  updateZoneButtonsPosition(app);
+}
+
+function getHotspotMode(width) {
+  if (width <= 768) return "lte768";
+  if (width <= 1032) return "lte1032";
+  return "default";
+}
+
+export function updateHotspotsForViewport(app) {
+  if (!app.zoneMeshes?.length) return;
+
+  const width = window.innerWidth;
+
+  const nextHotspots = getHotspotsForWidth(width);
+  const nextMode = getHotspotMode ? getHotspotMode(width) : null;
+
+  // Si quieres: solo recalcular si cambia el "modo" o el array de hotspots
+  // (lo típico es usar modo/breakpoint)
+  const modeChanged = nextMode !== app.hotspotMode;
+
+  if (!modeChanged) return;
+
+  app.hotspotMode = nextMode;
+  app.currentHotspots = nextHotspots;
+
+  nextHotspots.forEach((hotspot, index) => {
+    const marker = app.zoneMeshes[index];
+    if (!marker) return;
+
+    const buttonOffsetX = hotspot.buttonX || 0;
+    const buttonOffsetY =
+      hotspot.buttonY !== undefined ? hotspot.buttonY : 0.02;
+    const buttonOffsetZ = hotspot.buttonZ || 0;
+
+    // mover marker
+    marker.position.set(
+      app.modelCenter.x + buttonOffsetX,
+      app.modelCenter.y + buttonOffsetY,
+      app.modelCenter.z + buttonOffsetZ
+    );
+
+    // actualizar focusPoint (MUY IMPORTANTE si lo usas para zoom)
+    marker.userData.focusPoint.set(
+      app.modelCenter.x + (hotspot.focusX || 0),
+      app.modelCenter.y +
+        (hotspot.focusY !== undefined ? hotspot.focusY : 0.02),
+      app.modelCenter.z + (hotspot.focusZ || 0)
+    );
+  });
+}
+
+export function updateModelCenter(app) {
+  if (!app.officeModel) return;
+  const box = new THREE.Box3().setFromObject(app.officeModel);
+  app.modelCenter = box.getCenter(new THREE.Vector3());
 }

@@ -5,7 +5,7 @@ export const ZONES = {
     id: "sala_1",
     name: "Sala 1 - Arriba Izquierda",
     bounds: {
-      minX: -0.20,
+      minX: -0.2,
       maxX: 0.05,
       minZ: 0.08,
       maxZ: 0.35,
@@ -15,7 +15,7 @@ export const ZONES = {
     id: "sala_2",
     name: "Sala 2 - Abajo Izquierda",
     bounds: {
-      minX: -0.20,
+      minX: -0.2,
       maxX: 0.05,
       minZ: -0.15,
       maxZ: 0.08,
@@ -27,8 +27,8 @@ export const ZONES = {
     bounds: {
       minX: 0.25,
       maxX: 0.55,
-      minZ: 0.10,
-      maxZ: 0.30,
+      minZ: 0.1,
+      maxZ: 0.3,
     },
   },
   sala_4: {
@@ -36,9 +36,9 @@ export const ZONES = {
     name: "Sala 4 - Derecha",
     bounds: {
       minX: 0.25,
-      maxX: 0.50,
-      minZ: 0.10,
-      maxZ: 0.30,
+      maxX: 0.5,
+      minZ: 0.1,
+      maxZ: 0.3,
     },
   },
 
@@ -48,20 +48,18 @@ export const ZONES = {
     bounds: {
       // estos números definen la franja verde
       minX: -0.35, // más negativo → más a la izquierda
-      maxX: 0.85,  // más grande → cubre más a la derecha
-      minZ: -0.80,  // sube/baja la banda
-      maxZ: 0.22
-    }
-  }
-
+      maxX: 0.85, // más grande → cubre más a la derecha
+      minZ: -0.8, // sube/baja la banda
+      maxZ: 0.22,
+    },
+  },
 };
-
 
 // Mapeo HOTSPOT → ZONA
 const HOTSPOT_TO_ZONE = {
-  sala_2: "sala_1",          // Zona 1
-  sala_1: "sala_2",          // Zona 2
-  sala_3: "sala_4",          // Zona 3 (ala derecha)
+  sala_2: "sala_1", // Zona 1
+  sala_1: "sala_2", // Zona 2
+  sala_3: "sala_4", // Zona 3 (ala derecha)
   sala_4: "sala_4_topStrip", // Zona 4 → franja superior
 };
 

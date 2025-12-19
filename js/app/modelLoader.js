@@ -9,7 +9,8 @@ export function loadOfficeModel(app) {
     loader.load(
       "./../resources/model/oficina_modelo_web.fbx",
       (object) => {
-        object.scale.set(0.0006, 0.0006, 0.0006);
+        app.officeModel = object;
+        updateModelScale(app);
 
         object.traverse((child) => {
           if (!child.isMesh) return;
@@ -41,14 +42,21 @@ export function loadOfficeModel(app) {
         const box = new THREE.Box3().setFromObject(object);
         app.modelCenter = box.getCenter(new THREE.Vector3());
 
-        app.baseViewDir.copy(app.camera.position).sub(app.modelCenter).normalize();
+        app.baseViewDir
+          .copy(app.camera.position)
+          .sub(app.modelCenter)
+          .normalize();
+
         app.baseDistance = app.camera.position.distanceTo(app.modelCenter);
 
+        updateModelScale(app);
         resolve(object);
       },
       (xhr) => {
         if (xhr.total) {
-          console.log(`Cargando modelo: ${((xhr.loaded / xhr.total) * 100).toFixed(0)}%`);
+          console.log(
+            `Cargando modelo: ${((xhr.loaded / xhr.total) * 100).toFixed(0)}%`
+          );
         } else {
           console.log(`Cargando modelo: ${xhr.loaded} bytes`);
         }
@@ -59,4 +67,21 @@ export function loadOfficeModel(app) {
       }
     );
   });
+}
+
+export function updateModelScale(app) {
+  if (!app.officeModel) return;
+
+  console.log("HOLA BBS");
+
+  const width = window.innerWidth;
+  let scale = 0.0006;
+  if (width <= 1032) {
+    scale = 0.00045;
+  }
+  if (width <= 768) {
+    scale = 0.00027;
+  }
+
+  app.officeModel.scale.set(scale, scale, scale);
 }

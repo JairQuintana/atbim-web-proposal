@@ -8,7 +8,7 @@ THREE.ColorManagement.enabled = true;
 const container = document.getElementById("scene-container");
 if (!container) {
   throw new Error(
-    '[three.js] No existe #scene-container. Muévelo arriba del todo en <body> ANTES de cargar ./js/index.js'
+    "[three.js] No existe #scene-container. Muévelo arriba del todo en <body> ANTES de cargar ./js/index.js"
   );
 }
 

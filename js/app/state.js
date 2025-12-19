@@ -1,13 +1,20 @@
 // /js/app/state.js
 import * as THREE from "three";
 
-export function createAppState({ camera, controls, renderer, scene, MAIN_POSITION }) {
+export function createAppState({
+  camera,
+  controls,
+  renderer,
+  scene,
+  MAIN_POSITION,
+}) {
   return {
     // three core
     camera,
     controls,
     renderer,
     scene,
+    officeModel: null,
 
     // constants
     MAIN_POSITION,
@@ -37,8 +44,8 @@ export function createAppState({ camera, controls, renderer, scene, MAIN_POSITIO
     mouseY: 0,
 
     // API injection points
-    panels: null,     // createPanelSystem()
-    cameraApi: null,  // createCameraApi()
-    ui: null,         // injected in zoneUI
+    panels: null, // createPanelSystem()
+    cameraApi: null, // createCameraApi()
+    ui: null, // injected in zoneUI
   };
 }
